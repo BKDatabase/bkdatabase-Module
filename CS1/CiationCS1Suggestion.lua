@@ -1,0 +1,395 @@
+-- Please insert new suggestions in alphabetical order
+-- The form is ['incorrect'] = 'correct',
+
+suggestions = {
+	['ASIN-TLD'] = 'asin-tld',													-- old parameter name
+	['abruf'] = 'access-date',													-- German
+	['abruf-verborgen'] = 'access-date',										-- German
+	['accessmonth'] = 'access-date',
+	['accesso'] = 'access-date',												-- Italian
+	['accessyear'] = 'access-date',
+	['acessodata'] = 'access-date',												-- Brazilian Portuguese
+	['ad'] = 'first',															-- Turkish
+	['address'] = 'location',
+	['anno'] = 'date',															-- Italian
+	['annoaccesso'] = 'access-date',											-- Italian
+	['annodiaccesso'] = 'access-date',											-- Italian
+	['annooriginale'] = 'orig-date',											-- Italian
+	['année'] = 'date',															-- French
+	['apellido'] = 'last',														-- Spanish
+	['apellidos'] = 'last',														-- Spanish
+	['archiv-datum'] = 'archive-date',											-- German
+	['archiv-url'] = 'archive-url',												-- German
+	['archive date'] = 'archive-date',                                          -- misspelling
+	['archive url'] = 'archive-url',											-- misspelling
+	['archive-link'] = 'archive-url',	                                        -- old parameter name
+    ['archiv-url'] = 'archive-url',												-- German	
+    ['arkivdatum'] = 'archive-date',											-- Swedish, Norwegian
+    ['arkivurl'] = 'archive-url',											    -- Swedish, Norwegian	
+    ['artist'] = 'others',
+	['arşiv-tarihi'] = 'archive-date',											-- Turkish
+	['arşiv-url'] = 'archive-url',												-- Turkish
+	['arşivtarihi'] = 'archive-date',											-- Turkish
+	['arşivurl'] = 'archive-url',												-- Turkish
+	['auflage'] = 'edition',													-- German
+	['auteur'] = 'author',														-- French
+	['auther'] = 'author',                                                      -- misspelling
+	['author link'] = 'author-link',											-- Polish
+	['authorfirst'] = 'author-first',											-- old parameter name
+	['authorgiven'] = 'author-given',											-- old parameter name
+	['authorlast'] = 'author-last',												-- old parameter name
+	['authormask'] = 'author-mask',												-- old parameter name
+	['authorsurname'] = 'author-surname',										-- old parameter name
+	['autor'] = 'author',														-- Spanish, German (singular and plural)
+	['autore'] = 'author',														-- Italian
+	['autthor'] = 'author',                                                     -- misspelling
+	['ay'] = 'month',															-- Turkish
+	['año'] = 'date',															-- Spanish
+	['año-original'] = 'orig-date',												-- Spanish
+	['añoacceso'] = 'access-date',												-- Spanish
+	['añooriginal'] = 'orig-date',												-- Spanish
+	['band'] = 'volume',														-- German
+	['bandreihe'] = 'volume',													-- German
+	['baskı'] = 'edition',														-- Turkish
+	['başlık'] = 'title',														-- Turkish
+	['began'] = 'date',															-- old parameter name (cite serial only); or orig-date=
+	['booktitle'] = 'book-title',												-- old parameter name
+	['ch'] = 'language',														-- German (as 'language=de-CH')
+	['chapter_title'] = 'chapter',
+	['chapterurl'] = 'chapter-url',												-- old parameter name
+	['cid'] = 'ref',															-- Italian
+	['cilt'] = 'volume',														-- Turkish
+	['cita'] = 'quote',															-- Spanish
+	['citazione'] = 'quote',													-- Italian
+	['città'] = 'location',														-- Italian
+	['city'] = 'location',														-- old parameter name (cite serial only)
+	['coauthor'] = 'author',
+	['coauthors'] = 'author',
+	['coautores'] = 'author',													-- Spanish
+	['coautori'] = 'author',													-- Italian
+	['cognome'] = 'last',														-- Italian
+	['conferenceurl'] = 'conference-url',										-- old parameter name
+	['consulté le'] = 'access-date',											-- French
+	['contributionurl'] = 'contribution-url',									-- old parameter name
+	['curatore'] = 'publisher',													-- Italian
+	['czasopismo'] = 'journal',													-- Polish
+	['data dostępu'] = 'access-date',											-- Polish
+	['data'] = 'date',															-- Polish, Italian
+	['dataaccesso'] = 'access-date',											-- Italian
+	['dataarchivio'] = 'archive-date',											-- Italian
+	['datum'] = 'date',															-- German, Swedish
+	['dead-url'] = 'url-status',												-- old parameter name
+	['deadlink'] = 'url-status',                                                -- old parameter name
+	['deadurl'] = 'url-status',													-- old parameter name
+	['dergi'] = 'work',															-- Turkish
+	['dil'] = 'language',														-- Turkish
+	['displayauthors'] = 'display-authors',										-- old parameter name
+	['displayeditors'] = 'display-editors',										-- old parameter name
+	['distributor'] = 'publisher',
+	['dnb'] = 'id',																-- German (as 'id={{DNB-IDN|...}}')
+	['doi-broken'] = 'doi-broken-date',											-- old parameter alias
+	['doi-inactive'] = 'doi-broken-date',										-- invalid name found in mainspace
+	['doi-inactive-date'] = 'doi-broken-date',									-- old parameter alias
+	['doi_brokendate'] = 'doi-broken-date',										-- old parameter alias
+	['doi_inactivedate'] = 'doi-inactive-date',									-- old parameter alias
+	['doibroken'] = 'doi-broken-date',											-- invalid name found in mainspace
+	['doiinactive'] = 'doi-broken-date',										-- invalid name found in mainspace
+	['e-print'] = 'eprint',														-- misspelling
+	-- ['ed'] = 'edition',														-- avoid suggestion as in English this could be short for editor or edition
+	-- ['editora'] = 'publisher',												-- can be either editor or publisher
+	-- ['editore'] = 'agency',													-- can be either publisher or agency
+	-- ['editori'] = 'editor',													-- can be either editor or publisher
+	-- ['editorial'] = 'publisher',												-- can be either publisher or work
+	['editoin'] = 'edition',													-- misspelling
+	['editon'] = 'edition',														-- misspelling
+	['editorfirst'] = 'editor-first',											-- old parameter name
+	['editorgiven'] = 'editor-given',											-- old parameter name
+	['editorlast'] = 'editor-last',												-- old parameter name
+	['editorlink'] = 'editor-link',												-- old parameter name
+	['editormask'] = 'editor-mask',												-- old parameter name
+	['editors'] = 'editor',														-- old parameter name (can be emulated using multiple singular |editor= params)
+	['editorsurname'] = 'editor-surname',										-- old parameter name
+	['edizione'] = 'edition',													-- Italian
+	['embargo'] = 'pmc-embargo-date',											-- old parameter name
+	['ended'] = 'date',															-- old parameter name (cite serial only)
+	['en ligne le'] = 'archive-date',											-- French
+	['encyclopædia'] = 'encyclopedia',
+	['enlaceautor'] = 'author-link',											-- Spanish
+	['enlaceroto'] = 'url-status',												-- Spanish
+	['episodelink'] = 'episode-link',											-- old parameter name
+	['erişimtarihi'] = 'access-date',											-- Turkish
+	['eser'] = 'work',															-- Turkish
+	['family'] = 'surname',														-- misguess
+	['fecha'] = 'date',															-- Spanish
+	['fechaacceso'] = 'access-date',											-- Spanish
+	['fechaarchivo'] = 'archive-date',											-- Spanish
+	['filetype'] = 'format',
+	['foramt'] = 'format',														-- misspelling
+	['fore-name'] = 'given',													-- misguess/misspelling
+	['forename'] = 'given',														-- misguess
+	['författare'] = 'author',                                                  -- Swedish, Norwegian
+    ['formato'] = 'format',														-- Spanish, Italian, Polish
+	['frist'] = 'first',														-- misspelling
+	['fundstelle'] = 'at',														-- German
+	['gazete'] = 'work',														-- Turkish
+	['giornale'] = 'journal',													-- Italian
+    ['hämtdatum'] = 'access-date',											    -- Swedish	
+    ['herausgeber'] = 'editor',													-- German (singular and plural)
+	['hrsg'] = 'publisher',														-- German
+	['hrsgreihe'] = 'editor',													-- German
+	['idioma'] = 'language',													-- Spanish
+	['ignore-isbn-error'] = 'isbn',												-- old parameter (can be fully emulated using ((syntax)))
+	['ignoreisbnerror'] = 'isbn',												-- old parameter alias (suggest |isbn as |ignore-isbn-error is deprecated), not a direct replacement, but can be fully emulated using ((syntax))
+	['imię'] = 'first',															-- Polish
+	['in-set'] = 'inset',														-- misspelling
+	['interviewerlink'] = 'interviewer-link',									-- old parameter alias
+	['interviewermask'] = 'interviewer-mask',									-- old parameter alias
+	['isbndefekt'] = 'isbn',													-- German (suggest |isbn as |ignore-isbn-error is deprecated), not a direct replacement, but can be fully emulated using ((syntax))
+	['isbnformalfalsch'] = 'isbn',												-- German (suggest |isbn as |ignore-isbn-error is deprecated), not a direct replacement, but can be fully emulated using ((syntax))
+	['isbnistformalfalsch'] = 'isbn',											-- German (suggest |isbn as |ignore-isbn-error is deprecated), not a direct replacement, but can be fully emulated using ((syntax))
+	['isnb'] = 'isbn',															-- misspelling
+	['issnformalfalsch'] = 'issn',												-- German (can be fully emulated using ((syntax)))
+	['jahr'] = 'date',															-- German
+	['jahrea'] = 'orig-date',													-- German (not a direct replacement, but can be emulated)
+	['kapitel'] = 'chapter',													-- German
+	['langauge'] = 'language',													-- misspelling
+	['langue'] = 'language',													-- French
+	['last-author-amp'] = 'name-list-style',									-- old parameter name (as |name-list-style=amp)
+	['lastauthoramp'] = 'name-list-style',										-- old parameter name (as |name-list-style=amp)
+	['lieu'] = 'location',														-- French
+	['lingua'] = 'language',													-- Italian
+	['lire en ligne'] = 'url',													-- French
+	['lizenznummer'] = 'id',													-- German (as 'id=License No. ...')
+
+	['loaction'] = 'location',													-- misspelling
+	['local'] = 'location',														-- Brazilian Portuguese
+	['locatoin'] = 'location',													-- misspelling
+	['lugar'] = 'location',														-- Spanish
+	['mailinglist'] = 'mailing-list',											-- old parameter name
+	['mapurl'] = 'map-url',														-- old parameter name
+	['mes'] = 'date',															-- Spanish (not a direct replacement)
+	['mese'] = 'date',															-- Italian (not a direct replacement)
+	['miejsce'] = 'location',													-- Polish
+	['miesiąc'] = 'date',														-- Polish
+	['mois'] = 'date',															-- French
+	['monat'] = 'date',															-- German
+--	['name'] = 'author',														-- 'name' is often erroneously used for 'title' and 'work' as well, so no suggestion is better than a wrong suggestion
+	['name-list-format'] = 'name-list-style',									-- old parameter name (as |name-list-style=amp)
+	['nazwisko'] = 'last',														-- Polish
+	['nespaper'] = 'newspaper',													-- misspelling
+	['net-work'] = 'network',													-- misspelling
+	['newpaper'] = 'newspaper',													-- misspelling
+	['news'] = 'newspaper',
+	['news-group'] = 'newsgroup',												-- misspelling
+	['news-paper'] = 'newspaper',												-- misspelling
+	['no-cat'] = 'no-tracking',													-- old parameter
+	['nocat'] = 'no-tracking',													-- old parameter
+	['nom'] = 'last',															-- French
+	['nombre'] = 'first',														-- Spanish
+	['nome'] = 'first',															-- Italian
+	['nopp'] = 'no-pp',															-- old parameter name
+	['notracking'] = 'no-tracking',												-- old parameter
+	['numero'] = 'number',														-- Italian, Spanish
+	['nummer'] = 'number',														-- German
+	['nummerreihe'] = 'number',													-- German
+	['obra'] = 'work',															-- Spanish
+	['odpowiedzialność'] = 'agency',											-- Polish
+	['offline'] = 'url-status',													-- German (as 'url-status=dead')
+	['online'] = 'url',															-- German (not a direct replacement, but can be emulated)
+	['opera'] = 'work',															-- Italian
+	['opublikowany'] = 'agency',												-- Polish
+	['origdate'] = 'orig-date',													-- misspelling
+	['originaljahr'] = 'orig-date',												-- German
+	['originalort'] = 'publication-place',										-- German
+	['originalsprache'] = 'language',											-- German
+	['originaltitel'] = 'title',												-- German (if 'originaltitel' is specified, any possible contents of 'title' should be put in 'trans-title')
+	['ort'] = 'publication-place',												-- German
+	['ortea'] = 'publication-place',											-- German (not a direct replacement, but can be emulated)
+	['other'] = 'others',
+	['oznaczenie'] = 'agency',													-- Polish
+	['pagees'] = 'pages',														-- misspelling
+	['pagina'] = 'page',														-- Italian
+	['pagina'] = 'pages',														-- Italian
+	['pagine'] = 'pages',														-- Italian
+	['pagine'] = 'pages',														-- Italian
+	['passage'] = 'pages',														-- French
+	['periodico'] = 'magazine',													-- Spanish
+	['plublisher'] = 'publisher',												-- misspelling
+	['pmcid'] = 'pmc',
+	['post-script'] = 'postscript',												-- misspelling
+	['praca'] = 'work',															-- Polish
+	['primero'] = 'first',														-- Spanish
+	['prénom'] = 'first',														-- French
+	['prénom1'] = 'first1',														-- French
+	['ps'] = 'postscript',
+	['pub'] = 'publisher',
+	-- ['pubblicazione'] = 'magazine',											-- could be any kind of work
+	-- ['publicación'] = 'journal',												-- could be any kind of work
+	['publicationdate'] = 'publication-date',									-- old parameter name
+	-- ['published'] = 'publisher',												-- could be date, location, or name of publisher
+	['publicationplace'] = 'publication-place',									-- old parameter name
+	['pulbication-place'] = 'publication-place',								-- misspelling
+	['página'] = 'page',														-- Spanish
+	['páginas'] = 'pages',														-- Spanish
+	['périodique'] = 'publisher',												-- French
+	['registration'] = 'url-access',											-- old parameter name
+	['reihe'] = 'series',														-- German
+	['retrieved'] = 'access-date',                                              -- old parameter name
+	['richiestasottoscrizione'] = 'url-access',									-- Italian (as |url-access=subscription)
+	['rivista'] = 'magazine',                                                   -- Italian
+    ['rok'] = 'date',															-- Polish
+	['rubrik'] = 'title',                                                       -- Swedish
+    ['sammelwerk'] = 'work',													-- German
+	['sayfa'] = 'page',															-- Turkish
+	['sayfalar'] = 'pages',														-- Turkish
+	['sayı'] = 'issue',															-- Turkish
+	['script-post'] = 'postscript',												-- misspelling
+	['script-trans'] = 'transcript',											-- misspelling
+	['season'] = 'date',														-- old parameter name (cite serial only)
+	['sectionurl'] = 'section-url',												-- old parameter name
+	['seiten'] = 'pages',														-- German
+	['seria'] = 'series',														-- Spanish, Polish
+	['serie'] = 'series',														-- Italian
+	['série'] = 'series',														-- French
+	['serieslink'] = 'series-link',												-- old parameter name
+	['seriesno'] = 'series-number',												-- old parameter name
+	['service'] = 'agency',
+	['sitioweb'] = 'website',													-- Spanish
+	['sito'] = 'website',														-- Italian
+	['soyadı'] = 'last',														-- Turkish
+	['spalten'] = 'at',															-- German (not a direct replacement, but can be emulated)
+	['sprache'] = 'language',													-- German
+	['språk'] = 'language',                                                     -- Swedish, Norwegian
+    ['stron'] = 'page',															-- Polish
+	['strony'] = 'pages',														-- Polish
+	['subjectlink'] = 'subject-link',											-- old parameter name
+	['subscription'] = 'url-access',											-- old parameter name (emulated as |url-access=subscription)
+	['sur-name'] = 'surname',													-- misspelling
+	['suscripción'] = 'url-access',												-- Spanish, Polish (as |url-access=subscription)
+	['tag'] = 'date',															-- German
+	['tarih'] = 'date',															-- Turkish
+	['template doc demo'] = 'no-tracking',										-- old parameter alias
+	['tidning'] = 'work',                                                       -- Swedish
+    ['tile'] = 'title',															-- misspelling
+	['timecaption'] = 'time-caption',											-- old parameter name
+	['titlelink'] = 'title-link',												-- old parameter name
+	['tipo'] = 'type',															-- Italian
+	['tite'] = 'title',															-- misspelling
+	['titel'] = 'title',														-- German
+	['titel-p'] = 'title',														-- German ('postscript=none' should be added as well)
+	['titelerg'] = 'contribution',												-- German (not a direct replacement, but can be emulated)
+	['titled'] = 'title',														-- Brazilian Portuguese
+	['titolo'] = 'title',														-- Italian
+	['titre'] = 'title',														-- French
+	['trans-script'] = 'transcript',											-- misspelling
+	['trans_chapter'] = 'trans-chapter',										-- old parameter alias
+	['trans_title'] = 'trans-title',											-- old parameter alias
+	['transchapter'] = 'trans-chapter',
+	['transcripturl'] = 'transcript-url',										-- old parameter name
+	['transscript'] = 'transcript',												-- misspelling
+	['transscript-format'] = 'transcript-format',								-- misspelling
+	['transscript-url'] = 'transcript-url',										-- misspelling
+	['transscripturl'] = 'transcript-url',										-- misspelling
+	['transtitle'] = 'trans-title',
+	['typ'] = 'author-mask',													-- German (not a direct replacement, but the only valid argument 'typ=wl' can be emulated using 'author-mask')
+	['tytuł'] = 'title',														-- Polish
+	['títle'] = 'title',
+	['título'] = 'title',														-- Spanish
+	['ubicación'] = 'location',													-- Spanish
+	['urlarchivio'] = 'archive-url',											-- Italian
+	['urlarchivo'] = 'archive-url',												-- Spanish
+	['urlmorto'] = 'url-status',												-- Italian
+	['urn'] = 'id',																-- German (as 'id={{URN|...}}')
+	['v-authors'] = 'vauthors',													-- misspelling
+	['v-editors'] = 'veditors',													-- misspelling
+	['verlag'] = 'publisher',													-- German
+	['verlagea'] = 'publisher',													-- German (not a direct replacement, but can be emulated)
+	['vol'] = 'volume',
+	['volumen'] = 'volume',														-- Spanish
+	['werk'] = 'work',															-- German
+	['werkerg'] = 'contribution',												-- German (not a direct replacement, but can be emulated)
+	['wkautore'] = 'author-link',												-- Italian
+	['wolumin'] = 'volume',														-- Polish
+	['wydanie'] = 'number',														-- Polish
+	['wydawca'] = 'publisher',													-- French
+	['yardımcıyazarlar'] = 'author',											-- Turkish
+	['yayımcı'] = 'publisher',													-- Turkish
+	['yayıncı'] = 'publisher',													-- Turkish
+	['yazar'] = 'author',														-- Turkish
+	['yazarbağı'] = 'author-link',												-- Turkish
+	['yer'] = 'location',														-- Turkish
+	['yıl'] = 'date',															-- Turkish
+	['zaprezentowany'] = 'publisher',											-- French
+	['zdb'] = 'id',																-- German (as 'id={{ZDB|...}}')
+	['zitat'] = 'quote',														-- German
+	['zugriff'] = 'access-date',												-- German
+	['éditeur'] = 'editor',														-- French
+	['ölüurl'] = 'url-status',													-- Turkish
+	['übersetzer'] = 'translator',												-- German (singular and plural)
+}
+
+
+
+--[[--------------------------< P A T T E R N S >--------------------------------------------------------------
+
+Here we use Lua patterns to make suggestions.  The form is
+
+	['pattern'] = 'correct',
+
+Lua patterns are not REGEX though they are similar.  The escape character is '%', not '\'.
+For more information about Lua patterns, see: Extension:Scribunto/Lua_reference_manual#Patterns
+
+Patterns should probably always include the '^' and '$' anchor assertions to prevent a partial
+match from incorrectly suggesting the wrong parameter name.  For instance, the pattern 'a[utho]+r'
+matches 'author' in the no-longer-supported parameter |author-separator= so the code suggests
+'|author='; the same pattern also matches the no-longer-supported parameter |separator= (returning 'ator')
+so again, the code suggests '|author='.
+
+One capture is supported, typically the enumerator from an enumerated parameter (the '6' in |author6=, etc.)
+The value from the capture replaces $1 in the 'correct' value.
+
+]]
+
+local patterns = {
+	['^ac+es+ ?d?a?t?e?$'] = 'access-date',										-- misspelling
+	['^apellido[s]?(%d+)$'] = 'last$1',											-- Spanish, enumerated
+	['^a[utho]+r$'] = 'author',													-- misspelling
+	['^a[utho]+r(%d+)$'] = 'author$1',											-- misspelling, enumerated
+	['^author link(%d+)$'] = 'author-link$1',									-- Polish, enumerated
+	['^autor[e]?(%d+)$'] = 'author$1',											-- Italian/Spanish/German, enumerated
+	['^authorfirst(%d+)$'] = 'author-first$1',									-- old parameter name, enumerated
+	['^author(%d+)first$'] = 'author-first$1',									-- old parameter name, enumerated
+	['^authorgiven(%d+)$'] = 'author-given$1',									-- old parameter name, enumerated
+	['^author(%d+)given$'] = 'author-given$1',									-- old parameter name, enumerated
+	['^authorlast(%d+)$'] = 'author-last$1',									-- old parameter name, enumerated
+	['^author(%d+)last$'] = 'author-last$1',									-- old parameter name, enumerated
+	['^authormask(%d+)$'] = 'author-mask$1',									-- old parameter name, enumerated
+	['^author(%d+)mask$'] = 'author-mask$1',									-- old parameter name, enumerated
+	['^authorsurname(%d+)$'] = 'author-surname$1',								-- old parameter name, enumerated
+	['^author(%d+)surname$'] = 'author-surname$1',								-- old parameter name, enumerated
+	['^cognome(%d+)$'] = 'last$1',												-- Italian, enumerated
+	['^editorfirst(%d+)$'] = 'editor-first$1',									-- old parameter name, enumerated
+	['^editor(%d+)first$'] = 'editor-first$1',									-- old parameter name, enumerated
+	['^editorgiven(%d+)$'] = 'editor-given$1',									-- old parameter name, enumerated
+	['^editor(%d+)given$'] = 'editor-given$1',									-- old parameter name, enumerated
+	['^editorlast(%d+)$'] = 'editor-last$1',									-- old parameter name, enumerated
+	['^editor(%d+)last$'] = 'editor-last$1',									-- old parameter name, enumerated
+	['^editorlink(%d+)$'] = 'editor-link$1',									-- old parameter name, enumerated
+	['^editor(%d+)link$'] = 'editor-link$1',									-- old parameter name, enumerated
+	['^editormask(%d+)$'] = 'editor-mask$1',									-- old parameter name, enumerated
+	['^editor(%d+)mask$'] = 'editor-mask$1',									-- old parameter name, enumerated
+	['^editorsurname(%d+)$'] = 'editor-surname$1',								-- old parameter name, enumerated
+	['^editor(%d+)surname$'] = 'editor-surname$1',								-- old parameter name, enumerated
+	['^enlaceautore(%d+)$'] = 'author-link$1',									-- Spanish, enumerated
+	['^first (%d+)$'] = 'first$1',												-- enumerated
+	['^last (%d+)$'] = 'last$1',												-- enumerated
+	['^nom[e]?(%d+)$'] = 'last$1',												-- Italian/French, enumerated
+	['^nombre(%d+)$'] = 'first$1',												-- Spanish, enumerated
+	['^primero(%d+)$'] = 'first$1',												-- Spanish, enumerated
+	['^pu[blish]+ers?$'] = 'publisher',											-- misspelling
+	['^subjectlink(%d+)$'] = 'subject-link$1',									-- old parameter name, enumerated
+	['^subject(%d+)link$'] = 'subject-link$1',									-- old parameter name, enumerated
+	['^wkautore(%d+)$'] = 'author-link$1',										-- Italian, enumerated
+	}
+
+return {suggestions = suggestions, patterns=patterns};
