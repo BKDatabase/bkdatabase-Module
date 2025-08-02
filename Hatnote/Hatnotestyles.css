@@ -1,0 +1,27 @@
+/* {{pp|small=y}} */
+.hatnote {
+	font-style: italic;
+}
+
+/* Limit structure CSS to divs because of [[Module:Hatnote inline]] */
+div.hatnote {
+	/* @noflip */
+	padding-left: 1.6em;
+	margin-bottom: 0.5em;
+}
+
+.hatnote i {
+	font-style: normal;
+}
+
+/* The templatestyles element inserts a link element before hatnotes.
+ * TODO: Remove link if/when WMF resolves T200206 */
+.hatnote + link + .hatnote {
+	margin-top: -0.5em;
+}
+
+@media print {
+	body.ns-0 .hatnote {
+		display: none !important;
+	}
+}
