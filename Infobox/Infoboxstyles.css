@@ -1,0 +1,107 @@
+/* Infobox template style */
+.infobox {
+	border: 1px solid #4DB6B0;
+	border-spacing: 3px;
+	background-color: #061016;
+	color: #4DB6B0;
+	/* @noflip */
+	margin: 0.5em 0 0.5em 1em;
+	padding: 0.2em;
+	/* @noflip */
+	float: right;
+	/* @noflip */
+	clear: right;
+	font-size: 88%;
+	line-height: 1.5em;
+}
+.infobox caption {
+	font-size: 125%;
+	font-weight: bold;
+	padding: 0.2em;
+	text-align: center;
+}
+.infobox td,
+.infobox th {
+	vertical-align: top;
+	/* @noflip */
+	text-align: left;
+}
+.infobox.bordered {
+	border-collapse: collapse;
+}
+.infobox.bordered td,
+.infobox.bordered th {
+	border: 1px solid #4DB6B0;
+}
+.infobox.bordered .borderless td,
+.infobox.bordered .borderless th {
+	border: 0;
+}
+
+.infobox.sisterproject {
+	width: 20em;
+	font-size: 90%;
+}
+
+.infobox.standard-talk {
+	border: 1px solid #4DB6B0;
+	background-color: #061016;
+}
+.infobox.standard-talk.bordered td,
+.infobox.standard-talk.bordered th {
+	border: 1px solid #4DB6B0;
+}
+
+/* styles for bordered infobox with merged rows */
+.infobox.bordered .mergedtoprow td,
+.infobox.bordered .mergedtoprow th {
+	border: 0;
+	border-top: 1px solid #4DB6B0;
+	/* @noflip */
+	border-right: 1px solid #4DB6B0;
+}
+
+.infobox.bordered .mergedrow td,
+.infobox.bordered .mergedrow th {
+	border: 0;
+	/* @noflip */
+	border-right: 1px solid #4DB6B0;
+}
+
+/* Styles for geography infoboxes, eg countries,
+   country subdivisions, cities, etc.            */
+.infobox.geography {
+	border-collapse: collapse;
+	line-height: 1.2em;
+	font-size: 90%;
+}
+
+.infobox.geography  td,
+.infobox.geography  th {
+	border-top: 1px solid #a2a9b1;
+	padding: 0.4em 0.6em 0.4em 0.6em;
+}
+.infobox.geography .mergedtoprow td,
+.infobox.geography .mergedtoprow th {
+	border-top: 1px solid #a2a9b1;
+	padding: 0.4em 0.6em 0.2em 0.6em;
+}
+
+.infobox.geography .mergedrow td,
+.infobox.geography .mergedrow th {
+	border: 0;
+	padding: 0 0.6em 0.2em 0.6em;
+}
+
+.infobox.geography .mergedbottomrow td,
+.infobox.geography .mergedbottomrow th {
+	border-top: 0;
+	border-bottom: 1px solid #a2a9b1;
+	padding: 0 0.6em 0.4em 0.6em;
+}
+
+.infobox.geography .maptable td,
+.infobox.geography .maptable th {
+	border: 0;
+	padding: 0;
+}
