@@ -1,0 +1,130 @@
+/* {{pp|small=y}} */
+.cmbox {
+	margin: 3px 0;
+	border-collapse: collapse;
+	border: 1px solid #a2a9b1;
+	background-color: #dfe8ff;    /* Default "notice" blue */
+	box-sizing: border-box;
+    /* necessary when embedded in other templates like [[:Category:Pending_AfC_submissions]] */
+	color: var( --color-base ); 
+}
+
+.cmbox-speedy {
+	border: 4px solid #b32424;    /* Red */
+	background-color: #ffdbdb;    /* Pink */
+}
+
+.cmbox-delete {
+	background-color: #ffdbdb;    /* Pink */
+}
+
+.cmbox-content {
+	background-color: #ffe7ce;    /* Orange */
+}
+
+.cmbox-style {
+	background-color: #fff9db;    /* Yellow */
+}
+
+.cmbox-move {
+	background-color: #e4d8ff;    /* Purple */
+}
+
+.cmbox-protection {
+	background-color: #efefe1;    /* Gray-gold */
+}
+
+.cmbox .mbox-text {
+	border: none;
+	/* @noflip */
+	padding: 0.25em 0.9em;
+	width: 100%;
+}
+
+.cmbox .mbox-image {
+	border: none;
+	/* @noflip */
+	padding: 2px 0 2px 0.9em;
+	text-align: center;
+}
+
+.cmbox .mbox-imageright {
+	border: none;
+	/* @noflip */
+	padding: 2px 0.9em 2px 0;
+	text-align: center;
+}
+
+/* An empty narrow cell */
+.cmbox .mbox-empty-cell {
+	border: none;
+	padding: 0;
+	width: 1px;
+}
+
+.cmbox .mbox-invalid-type {
+	text-align: center;
+}
+
+@media (min-width: 720px) {
+	.cmbox {
+		margin: 3px 10%;
+	}
+}
+
+/* flipped lightness in hsl space except the main cmbox is the main page blue */
+
+@media screen {
+    html.skin-theme-clientpref-night .cmbox {
+		background-color: #0d1a27;    /* Default "notice" blue */
+	}
+	
+	html.skin-theme-clientpref-night .cmbox-speedy,
+	html.skin-theme-clientpref-night .cmbox-delete {
+		background-color: #300;    /* Pink */
+	}
+	
+	html.skin-theme-clientpref-night .cmbox-content {
+		background-color: #331a00;    /* Orange */
+	}
+	
+	html.skin-theme-clientpref-night .cmbox-style {
+		background-color: #332b00;    /* Yellow */
+	}
+	
+	html.skin-theme-clientpref-night .cmbox-move {
+		background-color: #08001a;    /* Purple */
+	}
+	
+	html.skin-theme-clientpref-night .cmbox-protection {
+		background-color: #212112;    /* Gray-gold */
+	}
+}
+
+
+@media screen and ( prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os .cmbox {
+		background-color: #0d1a27;    /* Default "notice" blue */
+	}
+	
+	html.skin-theme-clientpref-os .cmbox-speedy,
+	html.skin-theme-clientpref-os .cmbox-delete {
+		background-color: #300;    /* Pink */
+	}
+	
+	html.skin-theme-clientpref-os .cmbox-content {
+		background-color: #331a00;    /* Orange */
+	}
+	
+	html.skin-theme-clientpref-os .cmbox-style {
+		background-color: #332b00;    /* Yellow */
+	}
+	
+	html.skin-theme-clientpref-os .cmbox-move {
+		background-color: #08001a;    /* Purple */
+	}
+	
+	html.skin-theme-clientpref-os .cmbox-protection {
+		background-color: #212112;    /* Gray-gold */
+	}
+}
