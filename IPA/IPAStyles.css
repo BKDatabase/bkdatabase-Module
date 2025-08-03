@@ -1,0 +1,8 @@
+.IPA-label-small {
+	font-size: 85%;
+}
+.references .IPA-label-small,
+.infobox .IPA-label-small,
+.navbox .IPA-label-small {
+	font-size: 100%;
+}
