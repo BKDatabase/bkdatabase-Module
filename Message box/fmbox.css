@@ -1,0 +1,58 @@
+/* {{pp|small=y}} */
+.fmbox {
+	clear: both;
+	margin: 0.2em 0;
+	width: 100%;
+	border: 1px solid #a2a9b1;
+    background-color: var(--background-color-interactive-subtle, #f8f9fa);
+    box-sizing: border-box;
+    color: var(--color-base, #202122);
+}
+
+.fmbox-warning {
+	border: 1px solid #bb7070;  /* Dark pink */
+	background-color: #ffdbdb;  /* Pink */
+}
+
+.fmbox-editnotice {
+	background-color: transparent;
+}
+
+.fmbox .mbox-text {
+	border: none;
+	/* @noflip */
+	padding: 0.25em 0.9em;
+	width: 100%;
+}
+
+.fmbox .mbox-image {
+	border: none;
+	/* @noflip */
+	padding: 2px 0 2px 0.9em;
+	text-align: center;
+}
+
+.fmbox .mbox-imageright {
+	border: none;
+	/* @noflip */
+	padding: 2px 0.9em 2px 0;
+	text-align: center;
+}
+
+.fmbox .mbox-invalid-type {
+	text-align: center;
+}
+
+
+@media screen {
+    html.skin-theme-clientpref-night .fmbox-warning {
+		background-color: #300;    /* Reddish, same hue/saturation as light */
+	}
+}
+
+
+@media screen and ( prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os .fmbox-warning {
+		background-color: #300; /* Reddish, same hue/saturation as light */
+	}
+}
