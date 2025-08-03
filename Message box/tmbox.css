@@ -1,0 +1,110 @@
+/* {{pp|small=y}} */
+.tmbox {
+	margin: 4px 0;
+	border-collapse: collapse;
+	border: 1px solid #c0c090;    /* Default "notice" gray-brown */
+	background-color: #f8eaba;
+	box-sizing: border-box;
+}
+
+/* For the "small=yes" option. */
+.tmbox.mbox-small {
+	font-size: 88%;
+	line-height: 1.25em;
+}
+
+.tmbox-speedy {
+	border: 2px solid #b32424;    /* Red */
+	background-color: #fee7e6;    /* Pink */
+}
+
+.tmbox-delete {
+	border: 2px solid #b32424;    /* Red */
+}
+
+.tmbox-content {
+	border: 2px solid #f28500;    /* Orange */
+}
+
+.tmbox-style {
+	border: 2px solid #fc3;       /* Yellow */
+}
+
+.tmbox-move {
+	border: 2px solid #9932cc;    /* Purple */
+}
+
+.tmbox .mbox-text {
+	border: none;
+	/* @noflip */
+	padding: 0.25em 0.9em;
+	width: 100%;
+}
+
+.tmbox .mbox-image {
+	border: none;
+	/* @noflip */
+	padding: 2px 0 2px 0.9em;
+	text-align: center;
+}
+
+.tmbox .mbox-imageright {
+	border: none;
+	/* @noflip */
+	padding: 2px 0.9em 2px 0;
+	text-align: center;
+}
+
+/* An empty narrow cell */
+.tmbox .mbox-empty-cell {           
+	border: none;
+	padding: 0;
+	width: 1px;
+}
+
+.tmbox .mbox-invalid-type {
+	text-align: center;
+}
+
+@media (min-width: 720px) {
+	.tmbox {
+		margin: 4px 10%;
+	}
+	
+	.tmbox.mbox-small {
+		/* @noflip */
+		clear: right;
+		/* @noflip */
+		float: right;
+		/* @noflip */
+		margin: 4px 0 4px 1em;
+		width: 238px;
+	}
+}
+
+
+@media screen {
+    html.skin-theme-clientpref-night .tmbox {
+		background-color: #2e2505;    /* Dark brown, same hue/saturation as light */
+	}
+	
+	html.skin-theme-clientpref-night .tmbox-speedy {
+		background-color: #310402;    /* Dark red, same hue/saturation as light */
+	}
+}
+
+
+@media screen and ( prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os .tmbox {
+		background-color: #2e2505; /* Dark brown, same hue/saturation as light */
+	}
+	
+	html.skin-theme-clientpref-os .tmbox-speedy {
+		background-color: #310402; /* Dark red, same hue/saturation as light */
+	}
+}
+
+/** T367463 */
+body.skin--responsive table.tmbox img {
+	max-width: none !important;
+}
