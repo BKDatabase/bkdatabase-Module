@@ -2,7 +2,7 @@
 .ombox {
 	margin: 4px 0;
 	border-collapse: collapse;
-	border: 1px solid #a2a9b1;    /* Default "notice" gray */
+	border: 1px solid #4DB6B0;    /* Default "notice" gray */
 	background-color: #444444;
 	box-sizing: border-box;
 }
