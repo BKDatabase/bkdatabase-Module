@@ -2,8 +2,8 @@
 .cmbox {
 	margin: 3px 0;
 	border-collapse: collapse;
-	border: 1px solid #a2a9b1;
-	background-color: #dfe8ff;    /* Default "notice" blue */
+	border: 1px solid #4DB6B0;
+	background-color: #061016;    /* Default "notice" blue */
 	box-sizing: border-box;
     /* necessary when embedded in other templates like [[:Category:Pending_AfC_submissions]] */
 	color: var( --color-base ); 
