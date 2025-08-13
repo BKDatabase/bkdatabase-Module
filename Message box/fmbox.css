@@ -4,7 +4,7 @@
 	margin: 0.2em 0;
 	width: 100%;
 	border: 1px solid #a2a9b1;
-    background-color: var(--background-color-interactive-subtle, #f8f9fa);
+    background-color: var(--background-color-interactive-subtle, #4DB6B0);
     box-sizing: border-box;
     color: var(--color-base, #202122);
 }
