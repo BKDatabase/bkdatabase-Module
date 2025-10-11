@@ -1,0 +1,109 @@
+/* {{pp-template}} */
+/* Hide the toggle gallery button */
+.randomSlideshow-container > .gallery.mw-gallery-slideshow > .gallerycarousel > div > div > div > span:nth-child(2)  {
+	display: none;
+}
+
+/* Visually hide the labels' text content, but retain screenreader access (hopefully) */
+.randomSlideshow-container .randomSlideshow-sr-only {
+	display:block;
+	width:1px;
+	height:1px;
+	text-indent:-999px;
+	overflow:hidden;
+}
+
+/*******************************************************************************
+ * MOBILE-ONLY STYLES
+ *******************************************************************************
+ * Mobile-only can targeted by prefixing these selectors:
+ *
+ *    .randomSlideshow-container ul.gallery:first-child
+ *
+ * This is becaue the div with class "nomobile" only gets included in the html
+ * for the desktop website, and not on mobile (except in Template namespace).
+ ******************************************************************************/
+
+/* Make labels sit side-by-side */
+.randomSlideshow-container ul.gallery:first-child label {
+	display:inline-block !important; /* overrides inline style */
+	padding:0.2em 0.3em;
+}
+
+/* Position the radio input in the center */
+.randomSlideshow-container ul.gallery:first-child label,
+.randomSlideshow-container ul.gallery:first-child input {
+	vertical-align: middle;
+}
+/* Make radio inputs bigger */
+.randomSlideshow-container ul.gallery:first-child input {
+	transform: scale(1.4)
+}
+
+/* Hide the "Show all" option */
+.randomSlideshow-container ul.gallery:first-child label:last-child {
+	display:none !important; /* overrides inline style */
+}
+
+.randomSlideshow-container ul.gallery:first-child .gallerybox {
+	/* Make sure the labels are underneath not alongside the gallery */
+	display:block;
+	/* Center gallery items within the gallery container */
+	margin: auto;
+}
+
+/* Remove excess padding around captions */
+.randomSlideshow-container ul.gallery:first-child .gallerybox li,
+.randomSlideshow-container ul.gallery:first-child .gallerybox div,
+.randomSlideshow-container ul.gallery:first-child .gallerybox p {
+	padding-top:0;
+	padding-bottom:0;
+	margin:0;
+}
+
+/* Center the gallery within its container */
+.randomSlideshow-container ul.gallery.mw-gallery-slideshow:first-child {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block; /* fallback */
+    text-align:center; /* fallback: place the radio inputs in the center */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+/* Place radio inputs at the top, and gallery contents below */
+.randomSlideshow-container ul.gallery:first-child .gallerybox {
+	order: 99999;
+	flex-shrink: 0;
+}
+.randomSlideshow-container ul.gallery:first-child label {
+	flex: 0 0;
+}
+
+/* Allow descriptions to take up the full width of the container */
+.randomSlideshow-container ul.gallery:first-child .gallerybox {
+	width: 100% !important; /* overrides inline style */
+}
+.randomSlideshow-container ul.gallery:first-child .gallerybox > div,
+.randomSlideshow-container ul.gallery:first-child .gallerybox > div > div {
+	width: inherit !important; /* overrides inline style */
+	max-width: 100%;
+	text-align: center;
+}
+
+/*******************************************************************************
+ * DESKTOP-ONLY STYLES
+ *******************************************************************************
+ * Desktop-only can targeted by prefixing these selectors:
+ *
+ *    .randomSlideshow-container .nomobile+ul
+ *
+ * This is becaue the div with class "nomobile" only gets included in the html
+ * for the desktop website, and not on mobile (except in Template namespace).
+ ******************************************************************************/
+
+/* Hide all the switcher labels */
+.randomSlideshow-container .nomobile+ul label {
+	display:none !important; /* overrides inline style */
+}
