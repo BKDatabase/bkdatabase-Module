@@ -4569,8 +4569,205 @@ local function citation(frame)
 	});
 end
 
+--[[--------------------------< H A S _ T W L _ U R L >--------------------------------------------------------
+
+look for The Wikipedia Library urls in url-holding parameters.  TWL urls are accessible only for readers who are
+active extended confirmed Wikipedia editors.  This function sets an error message when such urls are discovered
+and when appropriate, sets the |<param>-url-access=subscription.  returns nothing.
+
+looks for: '.wikipedialibrary.idm.oclc.org'
+
+]]
+
+local function has_twl_url (url_params_t, cite_args_t)
+	local url_error_t = {};														-- sequence of url-holding parameters that have a TWL url
+	
+	for param, value in pairs (url_params_t) do
+		if value:find ('%.wikipedialibrary%.idm%.oclc%.org') then				-- has the TWL base url?
+			table.insert (url_error_t, param);									-- add parameter name to the error list
+		end
+	end
+	if 0 ~= #url_error_t then													-- non-zero when there are errors
+		table.sort (url_error_t);												-- sor for error messaging
+		for i, param in ipairs (url_error_t) do
+			if cfg.url_access_map_t[param] then									-- if <param> has a matching -access parameter
+				cite_args_t[cfg.url_access_map_t[param]] = cfg.keywords_xlate.subscription;	-- set |<param>-url-access=subscription
+			end
+			url_error_t[i] = utilities.wrap_style ('parameter', param);			-- make the parameter pretty for error message
+		end
+
+		utilities.set_message ('err_param_has_twl_url', {utilities.make_sep_list (#url_error_t, url_error_t)});	-- add this error message
+	end
+end
+
+--[[--------------------------< H A S _ E X T R A N E O U S _ U R L >------------------------------------------
+
+look for extraneous url parameter values; parameters listed in skip table are not checked
+
+]]
+
+local function has_extraneous_url (non_url_param_t)
+	local url_error_t = {};
+	
+	check_for_url (non_url_param_t, url_error_t);								-- extraneous url check
+	if 0 ~= #url_error_t then													-- non-zero when there are errors
+		table.sort (url_error_t);
+		utilities.set_message ('err_param_has_ext_link', {utilities.make_sep_list (#url_error_t, url_error_t)});	-- add this error message
+	end
+end
+
+--[[--------------------------< _ C I T A T I O N >------------------------------------------------------------
+
+Module entry point
+
+	frame – from template call (citation()); may be nil when called from another module
+	args_t – table of all cs1|2 parameters in the template (the parent frame)
+	config_t – table of template-supplied parameter (the #invoke frame)
+
+]]
+
+local function _citation (frame, args_t, config_t)								-- save a copy in case we need to display an error message in preview mode
+	if not frame then
+		frame = mw.getCurrentFrame();											-- if called from another module, get a frame for frame-provided functions
+	end
+																				-- i18n: set the name that your wiki uses to identify sandbox subpages from sandbox template invoke (or can be set here)
+	local sandbox = ((config_t.SandboxPath and '' ~= config_t.SandboxPath) and config_t.SandboxPath) or '/sandbox';	-- sandbox path from {{#invoke:Citation/CS1/sandbox|citation|SandboxPath=/...}}
+	is_sandbox = nil ~= string.find (frame:getTitle(), sandbox, 1, true);		-- is this invoke the sandbox module?
+	sandbox = is_sandbox and sandbox or '';										-- use i18n sandbox to load sandbox modules when this module is the sandox; live modules else
+
+	cfg = mw.loadData ('Module:Citation/CS1/Configuration' .. sandbox);			-- load sandbox versions of support modules when {{#invoke:Citation/CS1/sandbox|...}}; live modules else
+	whitelist = mw.loadData ('Module:Citation/CS1/Whitelist' .. sandbox);
+	utilities = require ('Module:Citation/CS1/Utilities' .. sandbox);
+	validation = require ('Module:Citation/CS1/Date_validation' .. sandbox);
+	identifiers = require ('Module:Citation/CS1/Identifiers' .. sandbox);
+	metadata = require ('Module:Citation/CS1/COinS' .. sandbox);
+
+	utilities.set_selected_modules (cfg);										-- so that functions in Utilities can see the selected cfg tables
+	identifiers.set_selected_modules (cfg, utilities);							-- so that functions in Identifiers can see the selected cfg tables and selected Utilities module
+	validation.set_selected_modules (cfg, utilities);							-- so that functions in Date validataion can see selected cfg tables and the selected Utilities module
+	metadata.set_selected_modules (cfg, utilities);								-- so that functions in COinS can see the selected cfg tables and selected Utilities module
+
+	z = utilities.z;															-- table of error and category tables in Module:Citation/CS1/Utilities
+	local cite_args_t = {};														-- because args_t is the parent (template) frame args (which cannot be modified); params and their values will be placed here
+
+	is_preview_mode = not utilities.is_set (frame:preprocess ('{{REVISIONID}}'));
+
+	local suggestions = {};														-- table where we store suggestions if we need to loadData them
+	local error_text;															-- used as a flag
+
+	local capture;																-- the single supported capture when matching unknown parameters using patterns
+	local empty_unknowns = {};													-- sequence table to hold empty unknown params for error message listing
+	for k, v in pairs (args_t) do												-- get parameters from the parent (template) frame
+		v = mw.ustring.gsub (v, '^%s*(.-)%s*$', '%1');							-- trim leading/trailing whitespace; when v is only whitespace, becomes empty string
+		if v ~= '' then
+			if ('string' == type (k)) then
+				k = mw.ustring.gsub (k, '%d', cfg.date_names.local_digits);		-- for enumerated parameters, translate 'local' digits to Western 0-9
+			end
+			if not validate( k, config_t.CitationClass ) then			
+				if type (k) ~= 'string' then									-- exclude empty numbered parameters
+					if v:match("%S+") ~= nil then
+						error_text = utilities.set_message ('err_text_ignored', {v});
+					end
+				elseif validate (k:lower(), config_t.CitationClass) then 
+					error_text = utilities.set_message ('err_parameter_ignored_suggest', {k, k:lower()});	-- suggest the lowercase version of the parameter
+				else
+					if nil == suggestions.suggestions then						-- if this table is nil then we need to load it
+						suggestions = mw.loadData ('Module:Citation/CS1/Suggestions' .. sandbox);	--load sandbox version of suggestion module when {{#invoke:Citation/CS1/sandbox|...}}; live module else
+					end
+					for pattern, param in pairs (suggestions.patterns) do		-- loop through the patterns to see if we can suggest a proper parameter
+						capture = k:match (pattern);							-- the whole match if no capture in pattern else the capture if a match
+						if capture then											-- if the pattern matches 
+							param = utilities.substitute (param, capture);		-- add the capture to the suggested parameter (typically the enumerator)
+							if validate (param, config_t.CitationClass) then		-- validate the suggestion to make sure that the suggestion is supported by this template (necessary for limited parameter lists)
+								error_text = utilities.set_message ('err_parameter_ignored_suggest', {k, param});	-- set the suggestion error message
+							else
+								error_text = utilities.set_message ('err_parameter_ignored', {k});	-- suggested param not supported by this template
+								v = '';											-- unset
+							end
+						end
+					end
+					if not utilities.is_set (error_text) then					-- couldn't match with a pattern, is there an explicit suggestion?						
+						if (suggestions.suggestions[ k:lower() ] ~= nil) and validate (suggestions.suggestions[ k:lower() ], config_t.CitationClass) then
+							utilities.set_message ('err_parameter_ignored_suggest', {k, suggestions.suggestions[ k:lower() ]});
+						else
+							utilities.set_message ('err_parameter_ignored', {k});
+							v = '';												-- unset value assigned to unrecognized parameters (this for the limited parameter lists)
+						end
+					end
+				end				  
+			end
+
+			cite_args_t[k] = v;													-- save this parameter and its value
+
+		elseif not utilities.is_set (v) then									-- for empty parameters
+			if not validate (k, config_t.CitationClass, true) then				-- is this empty parameter a valid parameter
+				k = ('' == k) and '(empty string)' or k;						-- when k is empty string (or was space(s) trimmed to empty string), replace with descriptive text
+				table.insert (empty_unknowns, utilities.wrap_style ('parameter', k));	-- format for error message and add to the list
+			end
+		end
+	end	
+
+	if 0 ~= #empty_unknowns then												-- create empty unknown error message
+		utilities.set_message ('err_param_unknown_empty', {
+			1 == #empty_unknowns and '' or 's',
+			utilities.make_sep_list (#empty_unknowns, empty_unknowns)
+			});
+	end
+
+	local non_url_param_t = {};													-- table of parameters and values that are not url-holding parameters
+	local url_param_t = {};														-- table of url-holding paramters and their values
+
+	for k, v in pairs (cite_args_t) do
+
+		if 'string' == type (k) then											-- don't evaluate positional parameters
+			has_invisible_chars (k, v);											-- look for invisible characters
+		end
+		has_extraneous_punc (k, v);												-- look for extraneous terminal punctuation in parameter values
+		missing_pipe_check (k, v);												-- do we think that there is a parameter that is missing a pipe?
+		cite_args_t[k] = inter_wiki_check (k, v);								-- when language interwiki-linked parameter missing leading colon replace with wiki-link label
+
+		if 'string' == type (k) then											-- when parameter k is not positional
+			if not cfg.url_skip[k] then											-- and not in url skip table
+				non_url_param_t[k] = v;											-- make a parameter/value list for extraneous url check
+			else																-- and is in url skip table (a url-holding parameter)
+				url_param_t[k] = v;												-- make a parameter/value list to check for values that are The Wikipedia Library url
+			end
+		end
+	end
+
+	has_extraneous_url (non_url_param_t);										-- look for url in parameter values where a url does not belong
+	has_twl_url (url_param_t, cite_args_t);										-- look for url-holding parameters that hold a The Wikipedia Library url
+
+	return table.concat ({
+		frame:extensionTag ('templatestyles', '', {src='Module:Citation/CS1' .. sandbox .. '/styles.css'}),
+		citation0 (config_t, cite_args_t)
+	});
+end
+
+
+--[[--------------------------< C I T A T I O N >--------------------------------------------------------------
+
+Template entry point
+
+]]
+
+local function citation (frame)
+	local config_t = {};														-- table to store parameters from the module {{#invoke:}}
+	local args_t = frame:getParent().args;										-- get template's preset parameters
+
+	for k, v in pairs (frame.args) do											-- get parameters from the {{#invoke}} frame
+		config_t[k] = v;
+	--	args_t[k] = v;															-- crude debug support that allows us to render a citation from module {{#invoke:}}; skips parameter validation; TODO: keep?
+	end	
+	return _citation (frame, args_t, config_t)
+end
+
 
 --[[--------------------------< E X P O R T E D   F U N C T I O N S >------------------------------------------
 ]]
 
-return {citation = citation};
+return {
+	citation = citation,														-- template entry point
+	
+	_citation = _citation,														-- module entry point
+	}
