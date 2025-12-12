@@ -1,0 +1,22 @@
+return {																		-- 639-2B
+	["alb"] = {"tiếng Albania"},
+	["arm"] = {"tiếng Armenia"},
+	["baq"] = {"tiếng Basque"},
+	["bur"] = {"tiếng Miến Điện"},
+	["chi"] = {"tiếng Trung Quốc"},
+	["cze"] = {"tiếng Séc"},
+	["dut"] = {"tiếng Hà Lan"},
+	["fre"] = {"tiếng Pháp"},
+	["geo"] = {"tiếng Georgia"},
+	["ger"] = {"tiếng Đức"},
+	["gre"] = {"tiếng Hy Lạp hiện đại (1453-)"},
+	["ice"] = {"tiếng Iceland"},
+	["mac"] = {"tiếng Macedonia"},
+	["mao"] = {"tiếng Maori"},
+	["may"] = {"tiếng Mã Lai"},
+	["per"] = {"tiếng Ba Tư"},
+	["rum"] = {"tiếng România", "tiếng Romania", "tiếng Moldavia", "tiếng Moldova"},
+	["slo"] = {"tiếng Slovakia"},
+	["tib"] = {"tiếng Tây Tạng"},
+	["wel"] = {"tiếng Wales"}
+	}
