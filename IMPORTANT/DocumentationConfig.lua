@@ -94,7 +94,7 @@ cfg['other-sandbox-category'] = 'Sandboxes outside of template or module namespa
 
 -- cfg['documentation-icon-wikitext']
 -- The wikitext for the icon shown at the top of the template.
-cfg['documentation-icon-wikitext'] = '[[File:Test Template Info-Icon - Version (2).svg|50px|link=|alt=]]'
+cfg['documentation-icon-wikitext'] = '[[File:Ledger open button.webp|50px|link=|alt=]]'
 
 -- cfg['template-namespace-heading']
 -- The heading shown in the template namespace.
@@ -138,7 +138,7 @@ cfg['create-link-display'] = 'create'
 
 -- cfg['transcluded-from-blurb']
 -- Notice displayed when the docs are transcluded from another page. $1 is a wikilink to that page.
-cfg['transcluded-from-blurb'] = 'The above [[Wikipedia:Template documentation|documentation]] is [[Help:Transclusion|transcluded]] from $1.'
+cfg['transcluded-from-blurb'] = 'The above [[BKDatabase:Tài liệu bản mẫu|documentation]] is [[Help:Transclusion|transcluded]] from $1.'
 
 --[[
 -- cfg['create-module-doc-blurb']
@@ -146,7 +146,7 @@ cfg['transcluded-from-blurb'] = 'The above [[Wikipedia:Template documentation|do
 -- $1 is a link to create the documentation page with the preload cfg['module-preload'] and the
 -- display cfg['create-link-display'].
 --]]
-cfg['create-module-doc-blurb'] = 'You might want to $1 a documentation page for this [[Wikipedia:Lua|Scribunto module]].'
+cfg['create-module-doc-blurb'] = 'You might want to $1 a documentation page for this [[BKDatabase:Lua|Scribunto module]].'
 
 ----------------------------------------------------------------------------------------------------
 -- Experiment blurb configuration
@@ -396,7 +396,7 @@ cfg['display-strange-usage-category'] = true
 -- cfg['strange-usage-category']
 -- Category to output if cfg['display-strange-usage-category'] is set to true and the module is used on a
 -- /doc subpage or a /testcases subpage.
-cfg['strange-usage-category'] = 'Wikipedia pages with strange ((documentation)) usage'
+cfg['strange-usage-category'] = 'BKDatabase pages with strange ((documentation)) usage'
 
 --[[
 ----------------------------------------------------------------------------------------------------
