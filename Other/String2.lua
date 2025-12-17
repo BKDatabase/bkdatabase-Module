@@ -1,51 +1,92 @@
+require ('strict');
 local p = {}
 
-
-p.upper = function(frame)
-	local s = mw.text.trim(frame.args[1] or "")
-	return string.upper(s)
+p.trim = function(frame)
+	return mw.text.trim(frame.args[1] or "")
 end
 
-p.lower = function(frame)
-	local s = mw.text.trim(frame.args[1] or "")
-	return string.lower(s)
-end
-
-p.sentence = function (frame )
-	frame.args[1] = string.lower(frame.args[1])
+p.sentence = function (frame)
+	-- {{lc:}} is strip-marker safe, string.lower is not.
+	frame.args[1] = frame:callParserFunction('lc', frame.args[1])
 	return p.ucfirst(frame)
 end
 
-p.ucfirst = function (frame )
-	local s =  mw.text.trim( frame.args[1] or "" )
+p.ucfirst = function (frame)
+	local s = frame.args[1];
+	if not s or '' == s or s:match ('^%s+$') then								-- when <s> is nil, empty, or only whitespace
+		return s;																-- abandon because nothing to do
+	end
+
+	s =  mw.text.trim( frame.args[1] or "" )
 	local s1 = ""
-	-- if it's a list chop off and (store as s1) everything up to the first <li>
-	local lipos = mw.ustring.find(s, "<li>" )
-	if lipos then
-		s1 = mw.ustring.sub(s, 1, lipos + 3)
-		s = mw.ustring.sub(s, lipos + 4)
+
+	local prefix_patterns_t = {													-- sequence of prefix patterns
+		'^\127[^\127]*UNIQ%-%-%a+%-%x+%-QINU[^\127]*\127',						-- stripmarker
+		'^([%*;:#]+)',															-- various list markup
+		'^(\'\'\'*)',															-- bold / italic markup
+		'^(%b<>)',																-- html-like tags because some templates render these
+		'^(&%a+;)',																-- html character entities because some templates render these
+		'^(&#%d+;)',															-- html numeric (decimal) entities because some templates render these
+		'^(&#x%x+;)',															-- html numeric (hexadecimal) entities because some templates render these
+		'^(%s+)',																-- any whitespace characters
+		'^([%(%)%-%+%?%.%%!~!@%$%^&_={}/`,‘’„“”ʻ|\"\'\\]+)',					-- miscellaneous punctuation
+		}
+	
+	local prefixes_t = {};														-- list, bold/italic, and html-like markup, & whitespace saved here
+
+	local function prefix_strip (s)												-- local function to strip prefixes from <s>
+		for _, pattern in ipairs (prefix_patterns_t) do							-- spin through <prefix_patterns_t> 
+			if s:match (pattern) then											-- when there is a match
+				local prefix = s:match (pattern);								-- get a copy of the matched prefix
+				table.insert (prefixes_t, prefix);								-- save it
+				s = s:sub (prefix:len() + 1);									-- remove the prefix from <s>
+				return s, true;													-- return <s> without prefix and flag; force restart at top of sequence because misc punct removal can break stripmarker
+			end
+		end
+		return s;																-- no prefix found; return <s> with nil flag
 	end
-	-- s1 is either "" or the first part of the list markup, so we can continue
-	-- and prepend s1 to the returned string
-	local letterpos
-	if mw.ustring.find(s, "^%[%[[^|]+|[^%]]+%]%]") then
-		-- this is a piped wikilink, so we capitalise the text, not the pipe
-		local _
-		_, letterpos = mw.ustring.find(s, "|%A*%a") -- find the first letter after the pipe
-	else
-		letterpos = mw.ustring.find(s, '%a')
+
+	local prefix_removed;														-- flag; boolean true as long as prefix_strip() finds and removes a prefix
+	
+	repeat																		-- one by one remove list, bold/italic, html-like markup, whitespace, etc from start of <s>
+		s, prefix_removed = prefix_strip (s);
+	until (not prefix_removed);													-- until <prefix_removed> is nil
+
+	s1 = table.concat (prefixes_t);												-- recreate the prefix string for later reattachment
+
+	local first_text = mw.ustring.match (s, '^%[%[[^%]]+%]%]');					-- extract wikilink at start of string if present; TODO: this can be string.match()?
+
+	local upcased;
+	if first_text then
+		if first_text:match ('^%[%[[^|]+|[^%]]+%]%]') then						-- if <first_text> is a piped link
+			upcased = mw.ustring.match (s, '^%[%[[^|]+|%W*(%w)');				-- get first letter character
+			upcased = mw.ustring.upper (upcased);								-- upcase first letter character
+			s = mw.ustring.gsub (s, '^(%[%[[^|]+|%W*)%w', '%1' .. upcased);		-- replace
+		else																	-- here when <first_text> is a wikilink but not a piped link
+			upcased = mw.ustring.match (s, '^%[%[%W*%w');						-- get '[[' and first letter
+			upcased = mw.ustring.upper (upcased);								-- upcase first letter character
+			s = mw.ustring.gsub (s, '^%[%[%W*%w', upcased);						-- replace; no capture needed here
+		end
+
+	elseif s:match ('^%[%S+%s+[^%]]+%]') then									-- if <s> is a ext link of some sort; must have label text
+		upcased = mw.ustring.match (s, '^%[%S+%s+%W*(%w)');						-- get first letter character
+		upcased = mw.ustring.upper (upcased);									-- upcase first letter character
+		s = mw.ustring.gsub (s, '^(%[%S+%s+%W*)%w', '%1' .. upcased);			-- replace
+	
+	elseif s:match ('^%[%S+%s*%]') then											-- if <s> is a ext link without label text; nothing to do
+		return s1 .. s;															-- reattach prefix string (if present) and done
+
+	else																		-- <s> is not a wikilink or ext link; assume plain text
+		upcased = mw.ustring.match (s, '^%W*%w');								-- get the first letter character
+		upcased = mw.ustring.upper (upcased);									-- upcase first letter character
+		s = mw.ustring.gsub (s, '^%W*%w', upcased);								-- replace; no capture needed here
 	end
-	if letterpos then
-		local first = mw.ustring.sub(s, 1, letterpos - 1)
-		local letter = mw.ustring.sub(s, letterpos, letterpos)
-		local rest = mw.ustring.sub(s, letterpos + 1)
-		return s1 .. first .. mw.ustring.upper(letter) .. rest
-	else
-		return s1 .. s
-	end
+
+	return s1 .. s;																-- reattach prefix string (if present) and done
 end
 
-p.title = function (frame )
+
+p.title = function (frame)
 	-- http://grammar.yourdictionary.com/capitalization/rules-for-capitalization-in-titles.html
 	-- recommended by The U.S. Government Printing Office Style Manual:
 	-- "Capitalize all words in titles of publications and documents,
@@ -58,10 +99,9 @@ p.title = function (frame )
 	local s =  mw.text.trim( frame.args[1] or "" )
 	local words = mw.text.split( s, " ")
 	for i, s in ipairs(words) do
-		s = string.lower( s )
-		if( i > 1 and alwayslower[s] == 1) then
-			-- leave in lowercase
-		else
+		-- {{lc:}} is strip-marker safe, string.lower is not.
+		s = frame:callParserFunction('lc', s)
+		if i == 1 or alwayslower[s] ~= 1 then
 			s = mw.getContentLanguage():ucfirst(s)
 		end
 		words[i] = s
@@ -78,7 +118,7 @@ p.findlast = function(frame)
 	local sep = frame.args[2] or ""
 	if sep == "" then sep = ", " end
 	local pattern = ".*" .. sep .. "(.*)"
-	a, b, last = s:find(pattern)
+	local a, b, last = s:find(pattern)
 	if a then
 		return last
 	else
@@ -100,29 +140,6 @@ end
 p.nowiki = function(frame)
 	local str = mw.text.trim(frame.args[1] or "")
 	return mw.text.nowiki(str)
-end
-
--- posnq (position, no quotes) returns the numerical start position of the first occurrence
--- of one piece of text ("match") inside another ("str").
--- It returns nil if no match is found, or if either parameter is blank.
--- It takes the text to be searched in as the first unnamed parameter, which is trimmed.
--- It takes the text to match as the second unnamed parameter, which is trimmed and
--- any double quotes " are stripped out.
-p.posnq = function(frame)
-	local args = frame.args
-	local pargs = frame:getParent().args
-	for k, v in pairs(pargs) do
-		args[k] = v
-	end
-	local str = mw.text.trim(args[1] or args.source or "")
-	local match = mw.text.trim(args[2] or args.target or ""):gsub('"', '')
-	if str == "" or match == "" then return nil end
-	local plain = mw.text.trim(args[3] or args.plain or "")
-	if plain == "false" then plain = false else plain = true end
-	local nomatch = mw.text.trim(args[4] or args.nomatch or "")
-	-- just take the start position
-	local pos = mw.ustring.find(str, match, 1, plain) or nomatch
-	return pos
 end
 
 -- split splits text at boundaries specified by separator
@@ -195,8 +212,8 @@ p._findpagetext = function(args)
 	local plain = args.plain or ""
 	if plain:sub(1, 1) == "f" then plain = false else plain = true end
 	-- get the page content and look for 'text' - return position or nomatch
-	content = titleobj:getContent()
-	return mw.ustring.find(content, text, 1, plain) or nomatch	-- returns multiple values
+	local content = titleobj and titleobj:getContent()
+	return content and mw.ustring.find(content, text, 1, plain) or nomatch
 end
 p.findpagetext = function(frame)
 	local args = frame.args
@@ -209,5 +226,199 @@ p.findpagetext = function(frame)
 	return (p._findpagetext(args))
 end
 
+-- returns the decoded url. Inverse of parser function {{urlencode:val|TYPE}}
+-- Type is:
+-- QUERY decodes + to space (default)
+-- PATH does no extra decoding
+-- WIKI decodes _ to space
+p._urldecode = function(url, type)
+	url = url or ""
+	type = (type == "PATH" or type == "WIKI") and type
+	return mw.uri.decode( url, type )
+end
+-- {{#invoke:String2|urldecode|url=url|type=type}}
+p.urldecode = function(frame)
+	return mw.uri.decode( frame.args.url, frame.args.type )
+end
+
+-- what follows was merged from Module:StringFunc
+
+-- helper functions
+p._GetParameters = require('Module:GetParameters')
+
+-- Argument list helper function, as per Module:String
+p._getParameters = p._GetParameters.getParameters
+
+-- Escape Pattern helper function so that all characters are treated as plain text, as per Module:String
+function p._escapePattern( pattern_str )
+	return mw.ustring.gsub( pattern_str, "([%(%)%.%%%+%-%*%?%[%^%$%]])", "%%%1" )
+end
+
+-- Helper Function to interpret boolean strings, as per Module:String
+p._getBoolean = p._GetParameters.getBoolean
+
+--[[
+Strip
+
+This function Strips characters from string
+
+Usage:
+{{#invoke:String2|strip|source_string|characters_to_strip|plain_flag}}
+
+Parameters
+	source: The string to strip
+	chars:  The pattern or list of characters to strip from string, replaced with ''
+	plain:  A flag indicating that the chars should be understood as plain text. defaults to true.
+
+Leading and trailing whitespace is also automatically stripped from the string.
+]]
+function p.strip( frame )
+	local new_args = p._getParameters( frame.args,  {'source', 'chars', 'plain'} )
+	local source_str = new_args['source'] or ''
+	local chars = new_args['chars'] or '' or 'characters'
+	source_str = mw.text.trim(source_str)
+	if source_str == '' or chars == '' then
+		return source_str
+	end
+	local l_plain = p._getBoolean( new_args['plain'] or true )
+	if l_plain then
+		chars = p._escapePattern( chars )
+	end
+	local result
+	result = mw.ustring.gsub(source_str, "["..chars.."]", '')
+	return result
+end
+
+--[[
+Match any
+Returns the index of the first given pattern to match the input. Patterns must be consecutively numbered.
+Returns the empty string if nothing matches for use in {{#if:}}
+
+Usage:
+	{{#invoke:String2|matchAll|source=123 abc|456|abc}} returns '2'.
+
+Parameters:
+	source: the string to search
+	plain:  A flag indicating that the patterns should be understood as plain text. defaults to true.
+	1, 2, 3, ...: the patterns to search for
+]]
+function p.matchAny(frame)
+	local source_str = frame.args['source'] or error('The source parameter is mandatory.')
+	local l_plain = p._getBoolean( frame.args['plain'] or true )
+	for i = 1, math.huge do
+		local pattern = frame.args[i]
+		if not pattern then return '' end
+		if mw.ustring.find(source_str, pattern, 1, l_plain) then
+			return tostring(i)
+		end
+	end
+end
+
+--[[--------------------------< H Y P H E N _ T O _ D A S H >--------------------------------------------------
+
+Converts a hyphen to a dash under certain conditions.  The hyphen must separate
+like items; unlike items are returned unmodified.  These forms are modified:
+	letter - letter (A - B)
+	digit - digit (4-5)
+	digit separator digit - digit separator digit (4.1-4.5 or 4-1-4-5)
+	letterdigit - letterdigit (A1-A5) (an optional separator between letter and
+		digit is supported – a.1-a.5 or a-1-a-5)
+	digitletter - digitletter (5a - 5d) (an optional separator between letter and
+		digit is supported – 5.a-5.d or 5-a-5-d)
+
+any other forms are returned unmodified.
+
+str may be a comma- or semicolon-separated list
+
+]]
+function p.hyphen_to_dash( str, spacing )
+	if (str == nil or str == '') then
+		return str
+	end
+
+	local accept
+
+	str = mw.text.decode(str, true )											-- replace html entities with their characters; semicolon mucks up the text.split
+
+	local out = {}
+	local list = mw.text.split (str, '%s*[,;]%s*')								-- split str at comma or semicolon separators if there are any
+
+	for _, item in ipairs (list) do												-- for each item in the list
+		item = mw.text.trim(item)												-- trim whitespace
+		item, accept = item:gsub ('^%(%((.+)%)%)$', '%1')
+		if accept == 0 and mw.ustring.match (item, '^%w*[%.%-]?%w+%s*[%-–—]%s*%w*[%.%-]?%w+$') then	-- if a hyphenated range or has endash or emdash separators
+			if item:match ('^%a+[%.%-]?%d+%s*%-%s*%a+[%.%-]?%d+$') or			-- letterdigit hyphen letterdigit (optional separator between letter and digit)
+				item:match ('^%d+[%.%-]?%a+%s*%-%s*%d+[%.%-]?%a+$') or			-- digitletter hyphen digitletter (optional separator between digit and letter)
+				item:match ('^%d+[%.%-]%d+%s*%-%s*%d+[%.%-]%d+$') or			-- digit separator digit hyphen digit separator digit
+				item:match ('^%d+%s*%-%s*%d+$') or								-- digit hyphen digit
+				item:match ('^%a+%s*%-%s*%a+$') then							-- letter hyphen letter
+					item = item:gsub ('(%w*[%.%-]?%w+)%s*%-%s*(%w*[%.%-]?%w+)', '%1–%2')	-- replace hyphen, remove extraneous space characters
+			else
+				item = mw.ustring.gsub (item, '%s*[–—]%s*', '–')				-- for endash or emdash separated ranges, replace em with en, remove extraneous whitespace
+			end
+		end
+		table.insert (out, item)												-- add the (possibly modified) item to the output table
+	end
+
+	local temp_str = table.concat (out, ',' .. spacing)							-- concatenate the output table into a comma separated string
+	temp_str, accept = temp_str:gsub ('^%(%((.+)%)%)$', '%1')					-- remove accept-this-as-written markup when it wraps all of concatenated out
+	if accept ~= 0 then
+		temp_str = str:gsub ('^%(%((.+)%)%)$', '%1')							-- when global markup removed, return original str; do it this way to suppress boolean second return value
+	end
+	return temp_str
+end
+
+function p.hyphen2dash( frame )
+	local str = frame.args[1] or ''
+	local spacing = frame.args[2] or ' ' -- space is part of the standard separator for normal spacing (but in conjunction with templates r/rp/ran we may need a narrower spacing
+
+	return p.hyphen_to_dash(str, spacing)
+end
+
+-- Similar to [[Module:String#endswith]]
+function p.startswith(frame)
+	return (frame.args[1]:sub(1, frame.args[2]:len()) == frame.args[2]) and 'yes' or ''
+end
+
+-- Implements [[Template:Isnumeric]]
+function p.isnumeric(frame)
+	local s = frame.args[1] or frame:getParent().args[1]
+	local boolean = (frame.args.boolean or frame:getParent().args.boolean) == 'true'
+	if type(s) == 'string' and mw.getContentLanguage():parseFormattedNumber( s ) then
+		return boolean and 1 or s
+	end
+	return boolean and 0 or ''
+end
+
+-- Checks if a value in a group of numbers is not an interger.
+-- Allows usage of an |empty= parameter to allow empty values to be skipped.
+function p.isInteger(frame)
+	local values = frame.args or frame:getParent().args
+	local allow_empty = frame.args.empty or frame:getParent().args.empty
+
+	for _, value in ipairs(values) do
+		-- Trim spaces
+		value = value and value:gsub("^%s*(.-)%s*$", "%1")
+		if value == "" or value == nil then
+			if not allow_empty then
+				return false  -- Empty values are not allowed
+			end
+		else
+			value = tonumber(value)
+			if not (type(value) == "number" and value == math.floor(value)) then
+				return false
+			end
+		end
+	end
+
+	return true
+end
+
+-- Returns an error found in a string.
+function p.getError(frame)
+	local text = frame.args[1] or frame:getParent().args[1]
+	local error_message = text:match('(<strong class="error">.-</strong>)')
+	return error_message or nil
+end
 
 return p
