@@ -10,6 +10,9 @@
 -- <nowiki>
 local seo = {}
 
+-- Apply SEO metadata for the current page using the WikiSEO (WikiSEO) extension.
+-- If the current page is the homepage (title "Trang Chính"), replace the page title and use a fixed description, banner image, and image alt text.
+-- @return The HTML comment <!-- Metadata SEO cố định --> indicating the module ran.
 function seo.main(frame)
   local titleObj = mw.title.getCurrentTitle()
   local siteName = mw.site.siteName
@@ -44,6 +47,8 @@ function seo.main(frame)
   return "<!-- Metadata SEO cố định -->"
 end
 
+-- Applies SEO metadata by delegating to the WikiSEO extension.
+-- @param argTable Table of SEO fields accepted by mw.ext.seo.set (for example: `title`, `description`, `keywords`, `site_name`, `image`, `image_alt`, `title_mode`).
 function seo.set(argTable)
   mw.ext.seo.set(argTable)
 end
