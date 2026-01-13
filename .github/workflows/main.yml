@@ -1,0 +1,3 @@
+- name: Luacheck
+
+  uses: lunarmodules/luacheck@v1.2.0
