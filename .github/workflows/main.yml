@@ -1,6 +1,12 @@
 name: Luacheck
 
-on: [push, pull_request]
+on:
+  pull_request:
+    paths:
+      - '/**/*.lua'
+  push:
+    paths:
+      - '/**/*.lua'
 
 jobs:
   luacheck:
@@ -8,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # bắt buộc để diff
 
       - name: Install Lua & Luacheck
         run: |
@@ -15,6 +23,19 @@ jobs:
           sudo apt-get install -y lua5.4 luarocks
           sudo luarocks install luacheck
 
-      - name: Run Luacheck
+      - name: Get changed Lua files
+        id: changes
         run: |
-          luacheck .
+          git diff --name-only origin/${{ github.base_ref }}...HEAD \
+            | grep '\.lua$' > changed_files.txt || true
+
+          echo "Changed files:"
+          cat changed_files.txt
+
+      - name: Run Luacheck on changed files
+        run: |
+          if [ -s changed_files.txt ]; then
+            luacheck $(cat changed_files.txt) --config .luacheckrc
+          else
+            echo "No Lua files changed."
+          fi
