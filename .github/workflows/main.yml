@@ -1,4 +1,5 @@
 name: Luacheck
+
 on: [push, pull_request]
 
 jobs:
@@ -7,3 +8,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install Lua & Luacheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.4 luarocks
+          sudo luarocks install luacheck
+
+      - name: Run Luacheck
+        run: |
+          luacheck .
