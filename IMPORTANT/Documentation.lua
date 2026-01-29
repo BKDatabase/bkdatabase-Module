@@ -236,7 +236,7 @@ function p.getEnvironment(args)
 		local subjectSpace = env.subjectSpace
 		local title = env.title
 		local subpage = title.subpageText
-		if subpage == message('sandbox-subpage') or subpage == message('testcases-subpage') then
+		if subpage == message('sandbox-subpage') or subpage == message('testcases-subpage') or (subpage == message('doc-subpage') and mw.title.getCurrentTitle().namespace == env.docSpace) then
 			return mw.title.makeTitle(subjectSpace, title.baseText)
 		else
 			return mw.title.makeTitle(subjectSpace, title.text)
@@ -378,7 +378,7 @@ function p.sandboxNotice(args, env)
 	omargs.image = message('sandbox-notice-image')
 	-- Get the text. We start with the opening blurb, which is something like
 	-- "This is the template sandbox for [[Template:Foo]] (diff)."
-	local text = ''
+	local text = '__EXPECTUNUSEDTEMPLATE__'
 	local pagetype, sandboxCat
 	if subjectSpace == 10 then
 		pagetype = message('sandbox-notice-pagetype-template')
@@ -759,7 +759,7 @@ function p.makeDocPageBlurb(args, env)
 	-- 'module-preload' --> 'Template:Documentation/preload-module-doc'
 	-- 'create-link-display' --> 'create'
 	-- 'create-module-doc-blurb' -->
-	-- 'You might want to $1 a documentation page for this [[Wikipedia:Lua|Scribunto module]].'
+	-- 'You might want to $1 a documentation page for this [[BKDatabase:Lua|Scribunto module]].'
 	--]=]
 	local docTitle = env.docTitle
 	if not docTitle then
