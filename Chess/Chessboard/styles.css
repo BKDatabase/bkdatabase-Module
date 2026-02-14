@@ -1,0 +1,26 @@
+.chessboard table {
+	font-size: 88%;
+	border: 1px #c8ccd1 solid;
+	padding: 0;
+	margin: auto;
+}
+
+.chessboard table tr {
+	vertical-align: middle;
+}
+
+.chessboard table td {
+	padding: 0;
+	vertical-align: inherit;
+	text-align: center;
+}
+
+/* td containing the chess pieces should not center aligned, causes issues in Timeless */
+.chessboard table td[rowspan] {
+	text-align: unset;
+}
+
+.chessboard .chess-pieces div:not(.pcs-image-wrapper) {
+	position: absolute;
+	z-index: 3;
+}

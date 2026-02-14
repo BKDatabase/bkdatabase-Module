@@ -1,0 +1,21 @@
+.chessboard.animate .nonknight.calculator-value-true {
+	transition: left 0.1s ease, top 0.1s ease, opacity 0.05s 0.1s ease-in
+}
+.chessboard.animate .knight.calculator-value-true {
+	transition: left 0.05s ease-in, top 0.05s 0.05s ease-out, opacity 0.05s 0.1s ease-in
+}
+
+.chessboard.animate .knight, .chessboard.animate .nonknight {
+	transition: left 0s 0.2s, top 0s 0.2s, opacity 0.1s ease-out
+}
+
+.chessboard.animate table {
+	transition: transform 0.2s
+}
+
+.chessboard table.calculator-value-true {
+	transform: rotate(180deg)
+}
+.chessboard table.calculator-value-true td .chess-pieces img, .chessboard table.calculator-value-true td.boardlabel {
+	transform: rotate(180deg)
+}
