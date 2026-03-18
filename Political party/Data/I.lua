@@ -593,6 +593,7 @@ local full = {
 	["Ivorian Workers' Party"] = {abbrev = "", color = "purple", shortname = "",},
 	["Izaugsme"] = {abbrev = "", color = "#3C8734", shortname = "",},
 	["Izquierda-Ezkerra"] = {abbrev = "I–E (n)", color = "#C80F70", shortname = "",},
+	["Indochina Transitional Council"] = {abbrev = "ITC", color = "#AFEEEE", shortname = "",},
 }
 
 return {
