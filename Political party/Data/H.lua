@@ -230,6 +230,8 @@ local full = {
 	["Hungarian Workers' Party"] = {abbrev = "", color = "#800000", shortname = "Workers' Party",},
 	["Hungarian Working People's Party"] = {abbrev = "MDP", color = "#DD0000", shortname = "",},
 	["Hyde Park Movement Party"] = {abbrev = "", color = "black", shortname = "",},
+	["Hoàng thân Lào"] = {abbrev = "", color = "#DD3509", shortname = "",},
+	["Hoàng thân Norodom"] = {abbrev = "", color = "#4810DD", shortname = "",},
 }
 
 return {
