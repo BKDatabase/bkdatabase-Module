@@ -141,6 +141,7 @@ local full = {
 	["Vox (political party)"] = {abbrev = "", color = "#63BE21", shortname = "Vox",},
 	["Vox Pop"] = {abbrev = "", color = "#219DDE", shortname = "",},
 	["Voz Plural - Gentes de Macau"] = {abbrev = "", color = "#954535", shortname = "",},
+	["Việt Nam Quang phục Hội"] = {abbrev = "", color = "#001B3C", shortname = "",},
 }
 
 return {
