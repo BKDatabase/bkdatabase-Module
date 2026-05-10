@@ -662,7 +662,7 @@ local full = {
 	["Rikken Kakushintō"] = {abbrev = "", color = "#00AE9D", shortname = "",},
 	["Rikken Kokumintō"] = {abbrev = "", color = "#A090E0", shortname = "",},
 	["Rikken Minseitō"] = {abbrev = "", color = "#6EA4CA", shortname = "",},
-	["Rikken Seiyūkai"] = {abbrev = "", color = "#B0D3A8", shortname = "",},
+	["Rikken Seiyūkai"] = {abbrev = "", color = "#FF3333", shortname = "",},
 	["Rikken Yōseikai"] = {abbrev = "", color = "#B0313F", shortname = "",},
 	["Rio Republican Party"] = {abbrev = "", color = "#00AFEF", shortname = "PR Fluminense",},
 	["Rinnovu"] = {abbrev = "", color = "#500F0B", shortname = "Rinnovu",},
