@@ -1322,6 +1322,7 @@ local full = {
 	["Pwersa ng Masa"] = {abbrev = "", color = "#ffa500", shortname = "",},
 	["Pwersa ng Masang Pilipino"] = {abbrev = "PMP", color = "#ffa500", shortname = "",},
 	["Pyramid Party of India"] = {abbrev = "", color = "#333399", shortname = "",},
+	["Phong trào Duy Tân"] = {abbrev = "", color= "#DDD61B", shortname = "",},
 }
 
 return {
