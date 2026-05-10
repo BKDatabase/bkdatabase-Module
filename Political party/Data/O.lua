@@ -152,7 +152,7 @@ local full = {
 	["Ostravak"] = {abbrev = "", color = "#9F1A16", shortname = "",},
 	["Other parties and independents"] = {abbrev = "", color = "#DDDDBB", shortname = "Others",},
 	["Other parties"] = {abbrev = "", color = "#DDDDBB", shortname = "",},
-	["Others"] = {abbrev = "", color = "#DDDDBB", shortname = "", link = "",},
+	["Others"] = {abbrev = "", color = "#808080", shortname = "", link = "",},
 	["Otpor"] = {abbrev = "", color = "black", shortname = "",},
 	["Otso Diretso"] = {abbrev = "8D", color = "#ffff00", shortname = "",},
 	["Otzma Yehudit"] = {abbrev = "", color = "#FF4500", shortname = "",},
