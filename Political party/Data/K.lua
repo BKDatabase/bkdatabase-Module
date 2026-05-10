@@ -82,7 +82,7 @@ local full = {
 	["KDŽP – Alliance for Slovakia"] = {abbrev = "", color = "#0082BF", shortname = "",},
 	["Keep It Straight and Simple Party"] = {abbrev = "", color = "#B1080F", shortname = "",},
 	["Kensei Hontō"] = {abbrev = "", color = "#FA8072", shortname = "",},
-	["Kenseikai"] = {abbrev = "", color = "#3773BE", shortname = "",},
+	["Kenseikai"] = {abbrev = "", color = "#87CEFA", shortname = "",},
 	["Kenseitō"] = {abbrev = "", color = "#F88379", shortname = "",},
 	["Kentucky Democratic Party"] = {abbrev = "", color = "#3333FF", shortname = "Democratic",},
 	["Kentucky Party"] = {abbrev = "", color = "#009736", shortname = "Kentucky",},
