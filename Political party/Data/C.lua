@@ -1306,6 +1306,7 @@ local full = {
 	["Czechoslovak People's Party"] = {abbrev = "ČSL", color = "#FFD700", shortname = "",},
 	["Czechoslovak Social Democracy"] = {abbrev = "ČSSD", color = "#EC5800", shortname = "",},
 	["Czechoslovak Traders' Party"] = {abbrev = "ČŽOS", color = "#F27A7A", shortname = "",},
+    ["Chánh phủ Lâm thời Thống nhất"] = {abbrev = "UPG", color = "#FFFD01", shortname = "",},
 }
 
 return {
