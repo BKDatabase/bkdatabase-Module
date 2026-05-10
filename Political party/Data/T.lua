@@ -453,6 +453,7 @@ local full = {
 	["Tuvan People's Revolutionary Party"] = {abbrev = "", color = "#ED1B34", shortname = "",},
 	["Twenty20 Kizhakkambalam"] = {abbrev = "", color = "#D0EFFF", shortname = "",},
 	["Tzomet"] = {abbrev = "", color = "#0047AB", shortname = "",},
+	["Tây Bắc Quân"] = {abbrev = "", color = "#DD6F24", shortname = "",},
 }
 
 return {
