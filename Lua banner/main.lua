@@ -34,7 +34,7 @@ function p.renderBox(modules)
 		for i, module in ipairs(modules) do
 			moduleLinks[i] = string.format('[[:%s]]', module)
 			local maybeSandbox = mw.title.new(module .. '/sandbox')
-			if maybeSandbox.exists then
+			if maybeSandbox and maybeSandbox.exists then
 				moduleLinks[i] = moduleLinks[i] .. string.format(' ([[:%s|sandbox]])', maybeSandbox.fullText)
 			end
 		end
@@ -97,9 +97,11 @@ function p.renderTrackingCategories(args, modules, titleObj)
 		if not args.noprotcat and protCatName then
 			local protLevels = {
 				autoconfirmed = 1,
-				extendedconfirmed = 2,
-				templateeditor = 3,
-				sysop = 4
+				editextendedconfirmedprotected = 2,
+				edittemplateeditorprotected = 3,
+				sysop = 4,
+				editbureaucratprotected = 5,
+				editmoderatorprotected = 6
 			}
 			local currentProt
 			if titleObj.id ~= 0 then
@@ -109,7 +111,8 @@ function p.renderTrackingCategories(args, modules, titleObj)
 			if currentProt == nil then currentProt = 0 else currentProt = protLevels[currentProt] end
 			for i, module in ipairs(modules) do
 				if module ~= "WP:libraryUtil" then
-					local moduleProt = mw.title.new(module).protectionLevels["edit"][1]
+					local moduleTitle = mw.title.new(module)
+					local moduleProt = moduleTitle and moduleTitle.protectionLevels["edit"][1]
 					if moduleProt == nil then moduleProt = 0 else moduleProt = protLevels[moduleProt] end
 					if moduleProt < currentProt then
 						cats[#cats + 1] = protCatName
