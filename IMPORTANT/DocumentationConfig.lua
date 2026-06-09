@@ -6,6 +6,10 @@
 -- localise it to your wiki and your language. Unless specified otherwise, values given here
 -- should be string values.
 ----------------------------------------------------------------------------------------------------
+local _format = require('Module:TNT').format
+local function format(id)
+	return _format('I18n/Documentation', id)
+end
 
 local cfg = {} -- Do not edit this line.
 
@@ -41,9 +45,9 @@ cfg['sandbox-notice-image'] = '[[File:Sandbox.svg|50px|alt=|link=]]'
 -- namespace. This message is used in either cfg['sandbox-notice-blurb'] or
 -- cfg['sandbox-notice-diff-blurb'].
 --]]
-cfg['sandbox-notice-pagetype-template'] = '[[Wikipedia:Template test cases|template sandbox]] page'
-cfg['sandbox-notice-pagetype-module'] = '[[Wikipedia:Template test cases|module sandbox]] page'
-cfg['sandbox-notice-pagetype-other'] = 'sandbox page'
+cfg['sandbox-notice-pagetype-template'] = format('sandbox-notice-pagetype-template')
+cfg['sandbox-notice-pagetype-module'] = format('sandbox-notice-pagetype-module')
+cfg['sandbox-notice-pagetype-other'] = format('sandbox-notice-pagetype-other')
 
 --[[
 -- cfg['sandbox-notice-blurb']
@@ -57,9 +61,9 @@ cfg['sandbox-notice-pagetype-other'] = 'sandbox page'
 -- the sandbox and the main template. The display value of the diff link is set by 
 -- cfg['sandbox-notice-compare-link-display'].
 --]]
-cfg['sandbox-notice-blurb'] = 'This is the $1 for $2.'
-cfg['sandbox-notice-diff-blurb'] = 'This is the $1 for $2 ($3).'
-cfg['sandbox-notice-compare-link-display'] = 'diff'
+cfg['sandbox-notice-blurb'] = format('sandbox-notice-blurb')
+cfg['sandbox-notice-diff-blurb'] = format('sandbox-notice-diff-blurb')
+cfg['sandbox-notice-compare-link-display'] = format('sandbox-notice-compare-link-display')
 
 --[[
 -- cfg['sandbox-notice-testcases-blurb']
@@ -75,10 +79,10 @@ cfg['sandbox-notice-compare-link-display'] = 'diff'
 -- cfg['sandbox-notice-testcases-run-link-display'] is the display value for the link to run the test
 -- cases.
 --]]
-cfg['sandbox-notice-testcases-blurb'] = 'See also the companion subpage for $1.'
-cfg['sandbox-notice-testcases-link-display'] = 'test cases'
-cfg['sandbox-notice-testcases-run-blurb'] = 'See also the companion subpage for $1 ($2).'
-cfg['sandbox-notice-testcases-run-link-display'] = 'run'
+cfg['sandbox-notice-testcases-blurb'] = format('sandbox-notice-testcases-blurb')
+cfg['sandbox-notice-testcases-link-display'] = format('sandbox-notice-testcases-link-display')
+cfg['sandbox-notice-testcases-run-blurb'] = format('sandbox-notice-testcases-run-blurb')
+cfg['sandbox-notice-testcases-run-link-display'] = format('sandbox-notice-testcases-run-link-display')
 
 -- cfg['sandbox-category'] - A category to add to all template sandboxes.
 -- cfg['module-sandbox-category'] - A category to add to all module sandboxes.
@@ -98,39 +102,39 @@ cfg['documentation-icon-wikitext'] = '[[File:Ledger open button.webp|50px|link=|
 
 -- cfg['template-namespace-heading']
 -- The heading shown in the template namespace.
-cfg['template-namespace-heading'] = 'Template documentation'
+cfg['template-namespace-heading'] = format('template-namespace-heading')
 
 -- cfg['module-namespace-heading']
 -- The heading shown in the module namespace.
-cfg['module-namespace-heading'] = 'Module documentation'
+cfg['module-namespace-heading'] = format('module-namespace-heading')
 
 -- cfg['file-namespace-heading']
 -- The heading shown in the file namespace.
-cfg['file-namespace-heading'] = 'Summary'
+cfg['file-namespace-heading'] = format('file-namespace-heading')
 
 -- cfg['other-namespaces-heading']
 -- The heading shown in other namespaces.
-cfg['other-namespaces-heading'] = 'Documentation'
+cfg['other-namespaces-heading'] = format('other-namespaces-heading')
 
 -- cfg['view-link-display']
 -- The text to display for "view" links.
-cfg['view-link-display'] = 'view'
+cfg['view-link-display'] = format('view-link-display')
 
 -- cfg['edit-link-display']
 -- The text to display for "edit" links.
-cfg['edit-link-display'] = 'edit'
+cfg['edit-link-display'] = format('edit-link-display')
 
 -- cfg['history-link-display']
 -- The text to display for "history" links.
-cfg['history-link-display'] = 'history'
+cfg['history-link-display'] = format('history-link-display')
 
 -- cfg['purge-link-display']
 -- The text to display for "purge" links.
-cfg['purge-link-display'] = 'purge'
+cfg['purge-link-display'] = format('purge-link-display')
 
 -- cfg['create-link-display']
 -- The text to display for "create" links.
-cfg['create-link-display'] = 'create'
+cfg['create-link-display'] = format('create-link-display')
 
 ----------------------------------------------------------------------------------------------------
 -- Link box (end box) configuration
@@ -213,19 +217,19 @@ cfg['module-sandbox-preload'] = 'Template:Documentation/preload-module-sandbox'
 
 -- cfg['sandbox-link-display']
 -- The text to display for "sandbox" links.
-cfg['sandbox-link-display'] = 'sandbox'
+cfg['sandbox-link-display'] = format('sandbox-link-display')
 
 -- cfg['sandbox-edit-link-display']
 -- The text to display for sandbox "edit" links.
-cfg['sandbox-edit-link-display'] = 'edit'
+cfg['sandbox-edit-link-display'] = format('sandbox-edit-link-display')
 
 -- cfg['sandbox-create-link-display']
 -- The text to display for sandbox "create" links.
-cfg['sandbox-create-link-display'] = 'create'
+cfg['sandbox-create-link-display'] = format('sandbox-create-link-display')
 
 -- cfg['compare-link-display']
 -- The text to display for "compare" links.
-cfg['compare-link-display'] = 'diff'
+cfg['compare-link-display'] = format('compare-link-display')
 
 -- cfg['mirror-edit-summary']
 -- The default edit summary to use when a user clicks the "mirror" link. $1 is a wikilink to the
@@ -234,7 +238,7 @@ cfg['mirror-edit-summary'] = 'Create sandbox version of $1'
 
 -- cfg['mirror-link-display']
 -- The text to display for "mirror" links.
-cfg['mirror-link-display'] = 'mirror'
+cfg['mirror-link-display'] = format('mirror-link-display')
 
 -- cfg['mirror-link-preload']
 -- The page to preload when a user clicks the "mirror" link.
@@ -258,19 +262,19 @@ cfg['module-testcases-preload'] = 'Template:Documentation/preload-module-testcas
 
 -- cfg['testcases-link-display']
 -- The text to display for "testcases" links.
-cfg['testcases-link-display'] = 'testcases'
+cfg['testcases-link-display'] = format('testcases-link-display')
 
 -- cfg['testcases-edit-link-display']
 -- The text to display for test cases "edit" links.
-cfg['testcases-edit-link-display'] = 'edit'
+cfg['testcases-edit-link-display'] = format('testcases-edit-link-display')
 
 -- cfg['testcases-run-link-display']
 -- The text to display for test cases "run" links.
-cfg['testcases-run-link-display'] = 'run'
+cfg['testcases-run-link-display'] = format('testcases-run-link-display')
 
 -- cfg['testcases-create-link-display']
 -- The text to display for test cases "create" links.
-cfg['testcases-create-link-display'] = 'create'
+cfg['testcases-create-link-display'] = format('testcases-create-link-display')
 
 ----------------------------------------------------------------------------------------------------
 -- Add categories blurb configuration
@@ -282,7 +286,7 @@ cfg['testcases-create-link-display'] = 'create'
 -- "docname fed" arguments are set, as then it is not clear where to add the categories. $1 is a
 -- link to the /doc subpage with a display value of cfg['doc-link-display'].
 --]]
-cfg['add-categories-blurb'] = 'Add categories to the $1 subpage.'
+cfg['add-categories-blurb'] = format('add-categories-blurb')
 
 -- cfg['doc-link-display']
 -- The text to display when linking to the /doc subpage.
@@ -298,7 +302,7 @@ cfg['doc-link-display'] = '/doc'
 -- display value of cfg['subpages-link-display']. In the English version this blurb is simply
 -- the link followed by a period, and the link display provides the actual text.
 --]]
-cfg['subpages-blurb'] = '$1.'
+cfg['subpages-blurb'] = format('subpages-blurb')
 
 --[[
 -- cfg['subpages-link-display']
@@ -306,19 +310,19 @@ cfg['subpages-blurb'] = '$1.'
 -- cfg['module-pagetype'] or cfg['default-pagetype'], depending on whether the current page is in
 -- the template namespace, the module namespace, or another namespace.
 --]]
-cfg['subpages-link-display'] = 'Subpages of this $1'
+cfg['subpages-link-display'] = format('subpages-link-display')
 
 -- cfg['template-pagetype']
 -- The pagetype to display for template pages.
-cfg['template-pagetype'] = 'template'
+cfg['template-pagetype'] = format('template-pagetype')
 
 -- cfg['module-pagetype']
 -- The pagetype to display for Lua module pages.
-cfg['module-pagetype'] = 'module'
+cfg['module-pagetype'] = format('module-pagetype')
 
 -- cfg['default-pagetype']
 -- The pagetype to display for pages other than templates or Lua modules.
-cfg['default-pagetype'] = 'page'
+cfg['default-pagetype'] = format('default-pagetype')
 
 ----------------------------------------------------------------------------------------------------
 -- Doc link configuration
