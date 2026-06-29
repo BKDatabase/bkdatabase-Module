@@ -289,6 +289,7 @@ function UnitTester:run(frame_arg)
     frame = frame_arg
     self.frame = frame
     self.differs_at = frame.args['differs_at']
+    local displayMode = frame.args.displayMode or 'table';
     tick = frame:preprocess('{{Tick}}')
     cross = frame:preprocess('{{Cross}}')
 
@@ -320,6 +321,18 @@ function UnitTester:run(frame_arg)
         self[value](self)
         result_table:insert("|}\n")
     end
+    
+    if (displayMode == 'short') then
+		local result_text = string.format(
+			"success: %d, error: %d",
+			num_runs - num_failures,
+			num_failures
+		);
+		if (num_failures > 0) then
+			result_text = '<span class="error">' .. result_text .. "</span>";
+		end
+		return result_text;
+	end
 
     return (num_runs == 0 and "<b>No tests were run.</b>"
     	or num_failures == 0 and "<b style=\"color:#008000\">All " .. num_runs .. " tests passed.</b>"
