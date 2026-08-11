@@ -1,0 +1,18 @@
+/* {{pp-template|small=yes}} */
+/* colors same as [[Module:Documentation/styles.css]] */
+.script-doc-auto-box.script-doc-auto-box {
+	background: #061016;
+}
+
+@media screen {
+    html.skin-theme-clientpref-night .script-doc-auto-box.script-doc-auto-box {
+	    background-color: #061016;
+	}
+}
+
+
+@media screen and ( prefers-color-scheme: dark) {
+    html.skin-theme-clientpref-os .script-doc-auto-box.script-doc-auto-box {
+        background-color: #061016;
+    }
+}
