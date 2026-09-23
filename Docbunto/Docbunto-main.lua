@@ -1867,7 +1867,7 @@ function p.doclet(data, options)
 		codedoc:newline()
 		codedoc:tag('hr'):done()
 		codedoc:newline()
-		codedoc:tag('p'):css('text-align', 'right'):wikitext(i18n:msg('message-autogeneration'))
+		codedoc:tag('p'):css('text-align', 'right'):css('font-size', '80%'):wikitext(i18n:msg('message-autogeneration'))
 	end
 
 	-- Add nowiki tags for EOF termination in tests.
