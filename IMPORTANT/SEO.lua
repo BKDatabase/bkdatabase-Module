@@ -1,18 +1,15 @@
 --- SEO, là một mô đun cho phép chèn các metadata SEO tự động vào các bài viết trên BKDatabase qua sự hỗ trợ của phần mở rộng [[mw:Extension:WikiSEO|WikiSEO]].
 -- Thường không được nhúng trực tiếp, trừ khi bất khả kháng như không có infobox hoặc trang đặc biệt.
--- '''Lưu ý''': Dùng mô đun này giới hạn ở không gian tên chính, Lore, Thành viên, Thể loại hoặc Timeline.
+--- '''Lưu ý''': Dùng mô đun này giới hạn ở không gian tên chính, Lore, Thành viên, Thể loại hoặc Timeline.
 --  @module             SEO
 --  @alias              WikiSEO
---  @author             [[m:User:Pisces|Song Ngư.xyz]] (Bản gốc ở 100bangaiwiki)
+--  @author             [[m:User:Pisces|Song Ngư.xyz]] (Bản gốc ở [[mh:100bangai:Module:SEO|100bangaiwiki]])
 --  @author             [[User:Bapham123|The Great Trial Await...]] (người phái sinh)
 --  @script             Module:SEO
 --  @release            p
 -- <nowiki>
 local seo = {}
 
--- Apply SEO metadata for the current page using the WikiSEO (WikiSEO) extension.
--- If the current page is the homepage (title "Trang Chính"), replace the page title and use a fixed description, banner image, and image alt text.
--- @return The HTML comment <!-- Metadata SEO cố định --> indicating the module ran.
 function seo.main(frame)
   local titleObj = mw.title.getCurrentTitle()
   local siteName = mw.site.siteName
@@ -47,8 +44,6 @@ function seo.main(frame)
   return "<!-- Metadata SEO cố định -->"
 end
 
--- Applies SEO metadata by delegating to the WikiSEO extension.
--- @param argTable Table of SEO fields accepted by mw.ext.seo.set (for example: `title`, `description`, `keywords`, `site_name`, `image`, `image_alt`, `title_mode`).
 function seo.set(argTable)
   mw.ext.seo.set(argTable)
 end
