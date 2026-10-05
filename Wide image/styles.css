@@ -1,0 +1,9 @@
+.wide-image-normbg, .thumbimage.wide-image-normbg {
+	background: var(--background-color-neutral-subtle, #f8f9fa);
+	color: inherit;
+}
+
+.wide-image-nobg, .thumbimage.wide-image-nobg {
+	background: transparent;
+	color: inherit;
+}
