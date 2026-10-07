@@ -1,0 +1,16 @@
+table.ahnentafel {
+	border-collapse: separate;
+	border-spacing: 0;
+	line-height: 130%;
+}
+.ahnentafel tr {
+	text-align:center;
+}
+.ahnentafel-t {
+	border-top:var(--color-base, #000) solid 1px; 
+	border-left:var(--color-base, #000) solid 1px;
+}
+.ahnentafel-b {
+	border-bottom:var(--color-base, #000) solid 1px;
+	border-left:var(--color-base, #000) solid 1px;
+}
