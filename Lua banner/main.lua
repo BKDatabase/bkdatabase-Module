@@ -3,8 +3,13 @@ local yesno = require('Module:Yesno')
 local mList = require('Module:List')
 local mTableTools = require('Module:TableTools')
 local mMessageBox = require('Module:Message box')
+local TNT = require('Module:TNT')
 
 local p = {}
+
+local function format(msg)
+	return TNT.format('I18n/Lua banner', msg)
+end
 
 function p.main(frame)
 	local origArgs = frame:getParent().args
@@ -28,7 +33,7 @@ end
 function p.renderBox(modules)
 	local boxArgs = {}
 	if #modules < 1 then
-		boxArgs.text = '<strong class="error">Error: no modules specified</strong>'
+		boxArgs.text = string.format('<strong class="error">%s</strong>', format('error_emptylist'))
 	else
 		local moduleLinks = {}
 		for i, module in ipairs(modules) do
@@ -44,9 +49,9 @@ function p.renderBox(modules)
 			title = title.basePageTitle
 		end
 		if title.contentModel == "Scribunto" then
-			boxArgs.text = 'This module depends on the following other modules:' .. moduleList
+			boxArgs.text = format('module-header') .. '\n' .. moduleList
 		else
-			boxArgs.text = 'This template  uses [[BKDatabase:Lua|Lua]]:\n' .. moduleList
+			boxArgs.text = format('header') .. '\n' .. moduleList
 		end
 	end
 	boxArgs.type = 'notice'
